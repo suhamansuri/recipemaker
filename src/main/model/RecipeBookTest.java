@@ -1,7 +1,5 @@
-package Test;
+package model;
 
-import model.Recipe;
-import model.RecipeBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -62,17 +60,16 @@ public class RecipeBookTest {
         rb.addRecipe(pizza);
         rb.addRecipe(pasta);
         rb.addRecipe(soup);
-        List<Recipe> oneFav = rb.getFavourites("Garlic");
+        List<String> oneFav = rb.getFavourites("Garlic");
         assertEquals(1, oneFav.size());
         assertTrue(soup.addIngredient("Garlic"));
         assertFalse(soup.addIngredient("Udon Noodles"));
         soup.addIngredient("Garlic");
-        List<Recipe> twoFav = rb.getFavourites("Garlic");
+        List<String> twoFav = rb.getFavourites("Garlic");
         assertEquals(2, twoFav.size());
         pasta.removeIngredient("Garlic");
-        List<Recipe> removeFav = rb.getFavourites("Garlic");
+        List<String> removeFav = rb.getFavourites("Garlic");
         assertEquals(1, removeFav.size());
-        assertFalse(removeFav.contains(pasta));
 
     }
 
@@ -95,11 +92,11 @@ public class RecipeBookTest {
         rb.addRecipe(soup);
         rb.addRecipe(cake);
         rb.addRecipe(sandwich);
-        List<Recipe> threeTime = rb.timeFor(45);
+        List<String> threeTime = rb.timeFor(45);
         assertEquals(3, threeTime.size());
         assertFalse(threeTime.contains(cake));
         cake.changeTime(42);
-        List<Recipe> fourTime = rb.timeFor(45);
+        List<String> fourTime = rb.timeFor(45);
         assertEquals(4, fourTime.size());
     }
 
@@ -108,10 +105,10 @@ public class RecipeBookTest {
         assertEquals(0, rb.viewBook().size());
         rb.addRecipe(pasta);
         rb.addRecipe(pizza);
-        List<Recipe> allRecipes = rb.viewBook();
+        List<String> allRecipes = rb.viewBook();
         assertEquals(2, allRecipes.size());
-        assertTrue(allRecipes.contains(pasta));
-        assertTrue(allRecipes.contains(pizza));
+        assertTrue(allRecipes.contains(pasta.getName()));
+        assertTrue(allRecipes.contains(pizza.getName()));
     }
 
     @Test

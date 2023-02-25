@@ -82,8 +82,8 @@ public class RecipeMaker {
     }
 
     public void handleViewCommand() {
-        List<Recipe> recipes = new ArrayList<>();
-        for (Recipe recipe : rb.viewBook()) {
+        List<String> recipes = new ArrayList<>();
+        for (String recipe : rb.viewBook()) {
             recipes.add(recipe);
             System.out.println(recipes);
             printOptions();
@@ -108,11 +108,11 @@ public class RecipeMaker {
         if (newCommand.equals("time")) {
             System.out.println("What is your time limit?");
             int time = input.nextInt();
-            rb.timeFor(time);
+            System.out.println(rb.timeFor(time));
         } else if (newCommand.equals("preference")) {
             System.out.println("What ingredient would you like to be included?");
             String pref = input.nextLine();
-            rb.getFavourites(pref);
+            System.out.println(rb.getFavourites(pref));
         } else {
             System.out.println("Sorry I do not understand this command. Please try again");
             handleOptionCommand();
@@ -140,7 +140,7 @@ public class RecipeMaker {
         List<String> ingredients = new ArrayList<>();
         System.out.println("What is the name of your recipe?");
         name = input.nextLine();
-        System.out.println("How much time does it take to make this meal?");
+        System.out.println("How much time does it take to make this meal? (in minutes)");
         time = input.nextInt();
         Recipe recipe = new Recipe(name, time, ingredients);
         rb.addRecipe(recipe);
@@ -162,11 +162,11 @@ public class RecipeMaker {
     public void editRecipe() {
         String name;
         Recipe recipe;
-        List<Recipe> allRecipes = rb.viewBook();
+        List<String> allRecipes = rb.viewBook();
         System.out.println("What is the name of the recipe you would like to edit?");
         name = input.nextLine();
         recipe = rb.getRecipe(name);
-        if (allRecipes.contains(recipe)) {
+        if (allRecipes.contains(name)) {
 
             System.out.println("What would you like to edit?");
             System.out.println("Type 'time' for cook time");
@@ -175,7 +175,7 @@ public class RecipeMaker {
 
         } else {
             System.out.println("Sorry, that recipe does not exist. Please try again");
-            editRecipe();
+            printOptions();
         }
     }
 
@@ -185,10 +185,14 @@ public class RecipeMaker {
             System.out.println("What time would you like to change it to?");
             time = input.nextInt();
             recipe.changeTime(time);
-        } else if (command.equals("ingredients")) {
+            System.out.println("Great! We have changed the cook time to " + time + " minutes");
+            printOptions();
+        } else if (command.equals("ingredient")) {
             System.out.println("Would ingredient would you like to add or remove?");
             String newIngredient;
             newIngredient = input.nextLine();
+            System.out.println("Great! We have added the ingredient " + newIngredient);
+            printOptions();
             if (recipe.addIngredient(newIngredient)) {
                 recipe.addIngredient(newIngredient);
             } else {
