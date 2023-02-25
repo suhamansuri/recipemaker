@@ -50,6 +50,15 @@ public class Recipe {
         }
     }
 
+    // REQUIRES: the input ingredient must be in the list of ingredients
+    // MODIFIES: this.ingredients
+    // EFFECTS: removes the given ingredient from list of ingredients
+    public void removeIngredient(String ing) {
+        if (ingredients.contains(ing)) {
+            ingredients.remove(ing);
+        }
+    }
+
     public boolean recipeContains(String ing) {
         return (ingredients.contains(ing));
     }

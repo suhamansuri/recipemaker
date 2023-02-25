@@ -24,9 +24,27 @@ public class RecipeBook {
         }
     }
 
-    // EFFECTS: if recipe in recipe book, returns ingredients, else returns null
+
+    // EFFECTS: returns all the recipes in the recipe book
+    public List<Recipe> viewBook() {
+        return recipes;
+    }
+
+    // REQUIRES: the recipe is in the recipe book
+    // EFFECTS: returns the recipe with the given name
+    public Recipe getRecipe(String name) {
+        Recipe thisRecipe = new Recipe("", 0,new ArrayList<>());
+        for (Recipe recipe : recipes) {
+            if (recipe.getName().equals(name)) {
+                thisRecipe = recipe;
+            }
+        }
+        return thisRecipe;
+    }
+
+    // EFFECTS: if recipe in recipe book, returns ingredients, else returns empty list
     public List<String> makeRecipe(String n) {
-        List<String> myIngredients = new ArrayList<>();
+        List<String> myIngredients = new LinkedList<>();
         for (Recipe recipe : recipes) {
             if (n.equals(recipe.getName())) {
                 myIngredients = recipe.getIngredients();

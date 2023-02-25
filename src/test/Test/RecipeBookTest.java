@@ -1,5 +1,7 @@
-package model;
+package Test;
 
+import model.Recipe;
+import model.RecipeBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -67,6 +69,10 @@ public class RecipeBookTest {
         soup.addIngredient("Garlic");
         List<Recipe> twoFav = rb.getFavourites("Garlic");
         assertEquals(2, twoFav.size());
+        pasta.removeIngredient("Garlic");
+        List<Recipe> removeFav = rb.getFavourites("Garlic");
+        assertEquals(1, removeFav.size());
+        assertFalse(removeFav.contains(pasta));
 
     }
 
@@ -78,6 +84,7 @@ public class RecipeBookTest {
         assertEquals(6, ingredients.size());
         assertTrue(ingredients.contains("Rigatoni"));
         assertFalse(ingredients.contains("Basil"));
+        assertEquals(0, rb.makeRecipe("Salad").size());
 
     }
 
@@ -94,10 +101,24 @@ public class RecipeBookTest {
         cake.changeTime(42);
         List<Recipe> fourTime = rb.timeFor(45);
         assertEquals(4, fourTime.size());
-
-
-
-
     }
 
+    @Test
+    void testViewBook() {
+        assertEquals(0, rb.viewBook().size());
+        rb.addRecipe(pasta);
+        rb.addRecipe(pizza);
+        List<Recipe> allRecipes = rb.viewBook();
+        assertEquals(2, allRecipes.size());
+        assertTrue(allRecipes.contains(pasta));
+        assertTrue(allRecipes.contains(pizza));
+    }
+
+    @Test
+    void testGetRecipe() {
+        rb.addRecipe(pasta);
+        rb.addRecipe(pizza);
+        rb.addRecipe(sandwich);
+        assertEquals(sandwich, rb.getRecipe("Cajun Chicken"));
+    }
 }

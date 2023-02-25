@@ -21,8 +21,8 @@ throughout my first semester (and even now) to properly plan out my meals with t
 I had.
 
 ## User Stories
-- As a user, I want to be able to add and edit recipes to my collection
-- As a user, I want to be able to allocate a set time for each different recipe according to me time to prepare
+- As a user, I want to be able to add and edit multiple recipes in my collection
+- As a user, I want to be able to allocate a set time for each different recipe according to my time to prepare
 - As a user, I want to be able to select a recipe that fits my current time allotted
-- As a user, I want to be able to select a recipe that includes the ingredients I have
-- As a user, I want to be able to add and remove ingredients from my collection
+- As a user, I want to be able to select a recipe that includes the ingredients I prefer
+- As a user, I want to be able to add and remove multiple ingredients from each recipe
