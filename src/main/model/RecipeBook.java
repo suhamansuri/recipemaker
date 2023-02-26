@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 
+// Represents all the recipes contained in the recipe book
 public class RecipeBook {
     private final LinkedList<Recipe> recipes;
 

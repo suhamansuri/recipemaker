@@ -3,6 +3,7 @@ package model;
 
 import java.util.List;
 
+// Represents a recipe with a name, time taken to cook and list of ingredients used
 public class Recipe {
     private final String name;
     private int time;
@@ -54,9 +55,7 @@ public class Recipe {
     // MODIFIES: this.ingredients
     // EFFECTS: removes the given ingredient from list of ingredients
     public void removeIngredient(String ing) {
-        if (ingredients.contains(ing)) {
-            ingredients.remove(ing);
-        }
+        ingredients.remove(ing);
     }
 
     public boolean recipeContains(String ing) {

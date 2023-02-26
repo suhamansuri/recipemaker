@@ -1,5 +1,7 @@
-package model;
+package model.tests;
 
+import model.Recipe;
+import model.RecipeBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -94,7 +96,7 @@ public class RecipeBookTest {
         rb.addRecipe(sandwich);
         List<String> threeTime = rb.timeFor(45);
         assertEquals(3, threeTime.size());
-        assertFalse(threeTime.contains(cake));
+        assertFalse(threeTime.contains("cake"));
         cake.changeTime(42);
         List<String> fourTime = rb.timeFor(45);
         assertEquals(4, fourTime.size());
