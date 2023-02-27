@@ -51,13 +51,14 @@ public class Recipe {
         }
     }
 
-    // REQUIRES: the input ingredient must be in the list of ingredients
+    // REQUIRES: the input ingredient is in the list of ingredients
     // MODIFIES: this.ingredients
     // EFFECTS: removes the given ingredient from list of ingredients
     public void removeIngredient(String ing) {
         ingredients.remove(ing);
     }
 
+    // EFFECTS: returns true if the recipe uses inputted ingredient, otherwise false
     public boolean recipeContains(String ing) {
         return (ingredients.contains(ing));
     }

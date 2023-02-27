@@ -28,9 +28,9 @@ public class RecipeBook {
     // EFFECTS: if recipe in recipe book, returns ingredients, else returns null
     public List<String> makeRecipe(String n) {
         List<String> myIngredients = new ArrayList<>();
-        for (Recipe recipe : recipes) {
-            if (n.equals(recipe.getName())) {
-                myIngredients = recipe.getIngredients();
+        for (Recipe recipe: recipes) {
+            if (recipe.getName().equals(n)) {
+                myIngredients.addAll(recipe.getIngredients());
             }
         }
         return myIngredients;
@@ -53,7 +53,7 @@ public class RecipeBook {
         return favourites;
     }
 
-    // REQUIRES: int time >= 0
+    // REQUIRES: int time > 0
     // EFFECTS: produces a list of recipes that can be made within a given amount of time
     public List<String> timeFor(Integer time) {
         List<String> timeFor = new ArrayList<>();
@@ -65,7 +65,7 @@ public class RecipeBook {
         return timeFor;
     }
 
-    // EFFECTS: returns all the recipes in the recipe book
+    // EFFECTS: returns all the names of recipes in the recipe book
     public List<String> viewBook() {
         List<String> recipeNames = new ArrayList<>();
         for (Recipe recipe: recipes) {

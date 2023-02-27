@@ -9,24 +9,22 @@ import java.util.Scanner;
 
 
 public class RecipeMaker {
-    private final RecipeBook rb;
+    private RecipeBook rb;
     private static final String SPECIFIC_MEAL_COMMAND = "make a meal";
     private static final String EDIT_COMMAND = "edit recipe book";
     private static final String GENERAL_MEAL_COMMAND = "options for meals";
     private static final String ERROR_MESSAGE = "Sorry, this recipe is not in the recipe book. Please try again";
     private static final String VIEW_COMMAND = "view recipe book";
     private boolean runMain;
-    private final Scanner input;
+    private Scanner input;
 
-    public RecipeMaker(RecipeBook rb) {
-        this.rb = rb;
-        input = new Scanner(System.in);
-        runMain = true;
+    public RecipeMaker() {
         runRecipeMakerApp();
     }
 
     public void runRecipeMakerApp() {
         System.out.println("What would you like to do today?");
+        init();
         String command;
         printOptions();
 
@@ -40,6 +38,13 @@ public class RecipeMaker {
         System.out.println("Thank you! Goodbye.");
     }
 
+    public void init() {
+        rb = new RecipeBook();
+        input = new Scanner(System.in);
+        runMain = true;
+
+    }
+
     public String fixCommandStyle(String s) {
         s = s.toLowerCase();
         s = s.trim();
@@ -51,52 +56,41 @@ public class RecipeMaker {
         System.out.println("\nTo make a  specific recipe, type " + "'" + SPECIFIC_MEAL_COMMAND + "'");
         System.out.println("For a list of options, type " + "'" + GENERAL_MEAL_COMMAND + "'");
         System.out.println("To edit or add a recipe, type " + "'" + EDIT_COMMAND + "'");
-        System.out.println("To view your entire recipe book, type " + VIEW_COMMAND);
+        System.out.println("To view your entire recipe book, type " + "'" + VIEW_COMMAND + "'");
         System.out.println("To quit, type " + "'quit'");
     }
 
     public void analyzeInput(String s) {
         if (s.length() > 0) {
-            switch (s) {
-                case SPECIFIC_MEAL_COMMAND:
-                    handleMealCommand();
-                    break;
-                case GENERAL_MEAL_COMMAND:
-                    handleOptionCommand();
-                    break;
-                case EDIT_COMMAND:
-                    handleEditCommand();
-                    break;
-                case VIEW_COMMAND:
-                    handleViewCommand();
-                    break;
-                case "quit":
-                    runMain = false;
-                    break;
-                default:
-                    System.out.println("Sorry, I did not understand the command. Try again");
-                    printOptions();
-                    break;
+            if (s.equals(SPECIFIC_MEAL_COMMAND)) {
+                handleMealCommand();
+            } else if (s.equals(GENERAL_MEAL_COMMAND)) {
+                handleOptionCommand();
+            } else if (s.equals(EDIT_COMMAND)) {
+                handleEditCommand();
+            } else if (s.equals(VIEW_COMMAND)) {
+                handleViewCommand();
+            } else if (s.equals("quit")) {
+                runMain = false;
+            } else {
+                System.out.println("Sorry, I did not understand the command. Try again");
+                printOptions();
             }
         }
     }
 
     public void handleViewCommand() {
-        List<String> recipes = new ArrayList<>();
-        for (String recipe : rb.viewBook()) {
-            recipes.add(recipe);
-            System.out.println(recipes);
-            printOptions();
-        }
+        System.out.println(rb.viewBook());
+        printOptions();
     }
 
     public void handleMealCommand() {
         System.out.println("You have selected meal command, what would you like to make?");
         String recipe = input.nextLine();
-        if (rb.makeRecipe(recipe).size() == 0) {
-            System.out.println(ERROR_MESSAGE);
-        } else {
+        if (rb.viewBook().contains(recipe)) {
             System.out.println("Great! Here are the ingredients:" + rb.makeRecipe(recipe));
+        } else {
+            System.out.println(ERROR_MESSAGE);
         }
         printOptions();
     }
@@ -145,6 +139,7 @@ public class RecipeMaker {
         Recipe recipe = new Recipe(name, time, ingredients);
         rb.addRecipe(recipe);
         System.out.println("What ingredients will you use? Type 'done' if done");
+        input.nextLine();
         addIngredients(recipe);
     }
 
