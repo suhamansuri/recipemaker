@@ -26,3 +26,7 @@ I had.
 - As a user, I want to be able to select a recipe that fits my current time allotted
 - As a user, I want to be able to select a recipe that includes the ingredients I prefer
 - As a user, I want to be able to add and remove multiple ingredients from each recipe
+- As a user, I want to be able to save my recipe book to file (if I choose)
+- As a user, I want to be able to load my recipe book from file (if i choose)
+- As a user, I want to be reminded to save my book to file and have the option not to
+- As a user, I want to be given the option to load my recipe book
