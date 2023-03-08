@@ -1,17 +1,21 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
+import persistance.Writable;
 
 
 // Represents all the recipes contained in the recipe book
-public class RecipeBook {
-    private final LinkedList<Recipe> recipes;
+public class RecipeBook implements Writable {
+    private List<Recipe> recipes;
 
     // EFFECTS: Constructs a new RecipeBook
     public RecipeBook() {
-        recipes = new LinkedList<>();
+        recipes = new ArrayList<>();
     }
 
     // MODIFIES: this
@@ -78,12 +82,34 @@ public class RecipeBook {
     // REQUIRES: Recipe must be in recipe book
     // EFFECTS: returns the recipe with the given name
     public Recipe getRecipe(String name) {
-        Recipe thisRecipe = new Recipe("", -1, new ArrayList<>());
+        Recipe thisRecipe = new Recipe("", -1);
         for (Recipe recipe : recipes) {
             if (name.equals(recipe.getName())) {
                 thisRecipe = recipe;
             }
         }
         return thisRecipe;
+    }
+
+    // EFFECTS: returns all the recipes in recipe book
+    public List<Recipe> getRecipes() {
+        return Collections.unmodifiableList(recipes);
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("recipes", recipesToJson());
+        return json;
+    }
+
+    private JSONArray recipesToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Recipe r : recipes) {
+            jsonArray.put(r.toJson());
+        }
+
+        return jsonArray;
     }
 }

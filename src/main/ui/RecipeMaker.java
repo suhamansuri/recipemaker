@@ -2,13 +2,17 @@ package ui;
 
 import model.Recipe;
 import model.RecipeBook;
+import persistance.JsonReader;
+import persistance.JsonWriter;
 
-import java.util.ArrayList;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
 
 public class RecipeMaker {
+    private static final String JSON_STORE = "./data/workroom.json";
     private RecipeBook rb;
     private static final String SPECIFIC_MEAL_COMMAND = "make a meal";
     private static final String EDIT_COMMAND = "edit recipe book";
@@ -17,8 +21,10 @@ public class RecipeMaker {
     private static final String VIEW_COMMAND = "view recipe book";
     private boolean runMain;
     private Scanner input;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
-    public RecipeMaker() {
+    public RecipeMaker() throws FileNotFoundException {
         runRecipeMakerApp();
     }
 
@@ -42,6 +48,8 @@ public class RecipeMaker {
         rb = new RecipeBook();
         input = new Scanner(System.in);
         runMain = true;
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
 
     }
 
@@ -53,11 +61,13 @@ public class RecipeMaker {
     }
 
     public void printOptions() {
-        System.out.println("\nTo make a  specific recipe, type " + "'" + SPECIFIC_MEAL_COMMAND + "'");
-        System.out.println("For a list of options, type " + "'" + GENERAL_MEAL_COMMAND + "'");
-        System.out.println("To edit or add a recipe, type " + "'" + EDIT_COMMAND + "'");
-        System.out.println("To view your entire recipe book, type " + "'" + VIEW_COMMAND + "'");
-        System.out.println("To quit, type " + "'quit'");
+        System.out.println("\tTo make a  specific recipe, type " + "'" + SPECIFIC_MEAL_COMMAND + "'");
+        System.out.println("\tFor a list of options, type " + "'" + GENERAL_MEAL_COMMAND + "'");
+        System.out.println("\tTo edit or add a recipe, type " + "'" + EDIT_COMMAND + "'");
+        System.out.println("\tTo view your entire recipe book, type " + "'" + VIEW_COMMAND + "'");
+        System.out.println("\tTo save recipe book to file, type 's'");
+        System.out.println("\tTo load recipe book from file, type 'l'");
+        System.out.println("\tTo quit, type " + "'quit'");
     }
 
     public void analyzeInput(String s) {
@@ -72,6 +82,10 @@ public class RecipeMaker {
                 handleViewCommand();
             } else if (s.equals("quit")) {
                 runMain = false;
+            } else if (s.equals("s")) {
+                saveRecipeBook();
+            } else if (s.equals("l")) {
+                loadRecipeBook();
             } else {
                 System.out.println("Sorry, I did not understand the command. Try again");
                 printOptions();
@@ -131,12 +145,11 @@ public class RecipeMaker {
     public void addRecipe() {
         String name;
         int time;
-        List<String> ingredients = new ArrayList<>();
         System.out.println("What is the name of your recipe?");
         name = input.nextLine();
         System.out.println("How much time does it take to make this meal? (in minutes)");
         time = input.nextInt();
-        Recipe recipe = new Recipe(name, time, ingredients);
+        Recipe recipe = new Recipe(name, time);
         rb.addRecipe(recipe);
         System.out.println("What ingredients will you use? Type 'done' if done");
         input.nextLine();
@@ -193,6 +206,28 @@ public class RecipeMaker {
             } else {
                 recipe.removeIngredient(newIngredient);
             }
+        }
+    }
+
+    // EFFECTS: saves the recipe book to file
+    private void saveRecipeBook() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(rb);
+            jsonWriter.close();
+            System.out.println("Saved RecipeBook " + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // EFFECTS: loads recipe book from file
+    private void loadRecipeBook() {
+        try {
+            rb = jsonReader.read();
+            System.out.println("Loaded RecipeBook" + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
         }
     }
 }

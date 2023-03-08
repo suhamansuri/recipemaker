@@ -1,0 +1,68 @@
+package persistance;
+
+import model.Recipe;
+import model.RecipeBook;
+import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+public class JsonWriterTest extends JsonTest {
+
+
+    @Test
+    void testWriterInvalidFile() {
+        try {
+            RecipeBook rb = new RecipeBook();
+            JsonWriter writer = new JsonWriter("./data/my\0illegal:fileName.json");
+            writer.open();
+            fail("IOException was expected");
+        } catch (IOException e) {
+            // pass
+        }
+    }
+
+    @Test
+    void testWriterEmptyWorkroom() {
+        try {
+            RecipeBook rb = new RecipeBook();
+            JsonWriter writer = new JsonWriter("./data/testWriterEmptyWorkroom.json");
+            writer.open();
+            writer.write(rb);
+            writer.close();
+
+            JsonReader reader = new JsonReader("./data/testWriterEmptyWorkroom.json");
+            rb = reader.read();
+            assertEquals(0, rb.bookSize());
+        } catch (IOException e) {
+            fail("Exception should not have been thrown");
+        }
+    }
+
+    @Test
+    void testWriterGeneralWorkroom() {
+        try {
+            RecipeBook rb = new RecipeBook();
+            rb.addRecipe(new Recipe("cake", 60));
+            rb.addRecipe(new Recipe("pasta", 30));
+            JsonWriter writer = new JsonWriter("./data/testWriterGeneralWorkroom.json");
+            writer.open();
+            writer.write(rb);
+            writer.close();
+
+            JsonReader reader = new JsonReader("./data/testWriterGeneralWorkroom.json");
+            rb = reader.read();
+            List<Recipe> recipes = rb.getRecipes();
+            assertEquals(2, recipes.size());
+            checkRecipe("cake", 60, recipes.get(0));
+            checkRecipe("pasta", 30, recipes.get(1));
+
+        } catch (IOException e) {
+            fail("Exception should not have been thrown");
+        }
+    }
+
+
+}

@@ -1,8 +1,8 @@
-# Time To Eat!
+# RecipeMaker
 
 ## An application to Help you Meal Prep
 
-TimeToEat will help you plan your meals by:
+RecipeMaker will help you plan your meals by:
 - **Keeping Track** of the items you have in your pantry
 - **Providing** meal ideas for the time you have with the ingredients you have!
 - **Inform** you of the groceries you need to purchase for meals on your meal-list

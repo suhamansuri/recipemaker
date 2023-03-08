@@ -1,20 +1,24 @@
 package model;
 // Represents a Recipe having a name, list of ingredients, time and list of step component
 
+import org.json.JSONObject;
+import persistance.Writable;
+
+import java.util.ArrayList;
 import java.util.List;
 
 // Represents a recipe with a name, time taken to cook and list of ingredients used
-public class Recipe {
+public class Recipe implements Writable {
     private final String name;
     private int time;
     private final List<String> ingredients;
 
 
     // EFFECTS: constructs the recipe (n, loi, t, los)
-    public Recipe(String n, int t, List<String> ing) {
+    public Recipe(String n, int t) {
         this.name = n;
         this.time = t;
-        this.ingredients = ing;
+        this.ingredients = new ArrayList<>();
     }
 
     // EFFECTS: returns the list of ingredients
@@ -61,6 +65,14 @@ public class Recipe {
     // EFFECTS: returns true if the recipe uses inputted ingredient, otherwise false
     public boolean recipeContains(String ing) {
         return (ingredients.contains(ing));
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("time", time);
+        return json;
     }
 
 }

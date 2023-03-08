@@ -23,16 +23,11 @@ public class RecipeBookTest {
     @BeforeEach
     void runBefore() {
         rb = new RecipeBook();
-        pasta = new Recipe("Rigatoni Rose", 30, new ArrayList<>(Arrays.asList("Rigatoni", "Tomato", "Garlic",
-                                                                     "Parmesan", "Heavy Cream", "Oyster Mushrooms")));
-        pizza = new Recipe("Margherita", 120, new ArrayList<>(Arrays.asList("Pizza Dough","Tomato Paste",
-                                                                 "Mozzarella", "Basil", "Chilli Oil")));
-        sandwich = new Recipe("Cajun Chicken", 15, new ArrayList<>(Arrays.asList("Potato Bun", "Arugula", "Tomato",
-                                                                                  "Brie", "Chicken", "Sriracha Mayo")));
-        soup = new Recipe("Chicken Noodle", 25, new ArrayList<>(Arrays.asList("Shredded Chicken", "Udon Noodles",
-                                                                             "Vegetable Broth", "Frozen Vegetables")));
-        cake = new Recipe("Molten Lava", 60, new ArrayList<>(Arrays.asList("Flour", "Cocoa Powder",
-                                                                        "Baking powder", "Eggs", "Milk", "Hershey's")));
+        pasta = new Recipe("Rigatoni Rose", 30);
+        pizza = new Recipe("Margherita", 120);
+        sandwich = new Recipe("Cajun Chicken", 15);
+        soup = new Recipe("Chicken Noodle", 25);
+        cake = new Recipe("Molten Lava", 60);
     }
 
     @Test
@@ -63,6 +58,8 @@ public class RecipeBookTest {
         rb.addRecipe(pizza);
         rb.addRecipe(pasta);
         rb.addRecipe(soup);
+        pasta.addIngredient("Garlic");
+        soup.addIngredient("Udon Noodles");
         List<String> oneFav = rb.getFavourites("Garlic");
         assertEquals(1, oneFav.size());
         assertTrue(soup.addIngredient("Garlic"));
@@ -78,6 +75,12 @@ public class RecipeBookTest {
 
     @Test
     public void testMakeRecipe() {
+        pasta.addIngredient("Rigatoni");
+        pasta.addIngredient("Garlic");
+        pasta.addIngredient("Pepper");
+        pasta.addIngredient("Mushroom");
+        pasta.addIngredient("Spinach");
+        pasta.addIngredient("Vodka");
         assertEquals(0, rb.makeRecipe("pasta").size());
         rb.addRecipe(pasta);
         List<String> ingredients = rb.makeRecipe("Rigatoni Rose");
@@ -120,5 +123,18 @@ public class RecipeBookTest {
         rb.addRecipe(pizza);
         rb.addRecipe(sandwich);
         assertEquals(sandwich, rb.getRecipe("Cajun Chicken"));
+    }
+
+    @Test
+    void testGetRecipes() {
+        rb.addRecipe(pasta);
+        rb.addRecipe(pizza);
+        rb.addRecipe(soup);
+        assertEquals(3, rb.getRecipes().size());
+        assertTrue(rb.getRecipes().contains(pasta));
+        assertTrue(rb.getRecipes().contains(pizza));
+        assertTrue(rb.getRecipes().contains(soup));
+        assertFalse(rb.getRecipes().contains(sandwich));
+        assertFalse(rb.getRecipes().contains(cake));
     }
 }

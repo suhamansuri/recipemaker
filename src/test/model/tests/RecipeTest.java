@@ -19,23 +19,21 @@ public class RecipeTest {
 
     @BeforeEach
     void runBefore() {
-        pasta = new Recipe("Rigatoni Rose", 30, new ArrayList<>(Arrays.asList("Rigatoni", "Tomato", "Garlic",
-                "Parmesan", "Heavy Cream", "Oyster Mushrooms")));
-        pizza = new Recipe("Margherita", 120, new ArrayList<>(Arrays.asList("Pizza Dough", "Tomato Paste",
-                "Mozzarella", "Basil", "Chilli Oil")));
-        sandwich = new Recipe("Cajun Chicken", 15, new ArrayList<>(Arrays.asList("Potato Bun", "Arugula", "Tomato",
-                "Brie", "Chicken", "Sriracha Mayo")));
-        soup = new Recipe("Chicken Noodle", 25, new ArrayList<>(Arrays.asList("Shredded Chicken", "Udon Noodles",
-                "Vegetable Broth", "Frozen Vegetables")));
-        cake = new Recipe("Molten Lava", 60, new ArrayList<>(Arrays.asList("Flour", "Cocoa Powder",
-                "Baking powder", "Eggs", "Milk", "Hershey's")));
+        pasta = new Recipe("Rigatoni Rose", 30);
+        pizza = new Recipe("Margherita", 120);
+        sandwich = new Recipe("Cajun Chicken", 15);
+        soup = new Recipe("Chicken Noodle", 25);
+        cake = new Recipe("Molten Lava", 60);
     }
 
 
     @Test
     void testGetIngredients() {
-        assertEquals(6, pasta.getIngredients().size());
+        assertEquals(0, pasta.getIngredients().size());
+        pasta.addIngredient("Rigatoni");
+        pasta.addIngredient("Garlic");
         assertTrue(pasta.getIngredients().contains("Rigatoni"));
+        assertTrue(pasta.getIngredients().contains("Garlic"));
         assertFalse(pasta.getIngredients().contains("Pepper"));
     }
 
@@ -60,25 +58,29 @@ public class RecipeTest {
 
     @Test
     void testAddIngredient() {
-        assertEquals(6, pasta.getIngredients().size());
+        assertEquals(0, pasta.getIngredients().size());
         assertTrue(pasta.addIngredient("Pepper"));
+        pasta.addIngredient("Garlic");
         assertFalse(pasta.addIngredient("Garlic"));
         pasta.addIngredient("Pepper");
         pasta.addIngredient("Garlic");
-        assertEquals(7, pasta.getIngredients().size());
+        assertEquals(2, pasta.getIngredients().size());
         assertTrue(pasta.recipeContains("Garlic"));
     }
 
     @Test
     void testRemoveIngredient() {
-        assertEquals(6, sandwich.getIngredients().size());
+        sandwich.addIngredient("Potato Bun");
+        assertEquals(1, sandwich.getIngredients().size());
         sandwich.removeIngredient("Potato Bun");
-        assertEquals(5, sandwich.getIngredients().size());
+        assertEquals(0, sandwich.getIngredients().size());
         assertFalse(sandwich.recipeContains("Potato Bun"));
     }
 
     @Test
     void testRecipeContains() {
+        soup.addIngredient("Shredded Chicken");
+        cake.addIngredient("Flour");
         assertTrue(soup.recipeContains("Shredded Chicken"));
         assertFalse(soup.recipeContains("Flour"));
         assertTrue(cake.recipeContains("Flour"));
