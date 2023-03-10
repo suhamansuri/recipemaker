@@ -1,6 +1,7 @@
 package model;
 // Represents a Recipe having a name, list of ingredients, time and list of step component
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import persistance.Writable;
 
@@ -15,10 +16,10 @@ public class Recipe implements Writable {
 
 
     // EFFECTS: constructs the recipe (n, loi, t, los)
-    public Recipe(String n, int t) {
+    public Recipe(String n, int t, List<String> ingredients) {
         this.name = n;
         this.time = t;
-        this.ingredients = new ArrayList<>();
+        this.ingredients = ingredients;
     }
 
     // EFFECTS: returns the list of ingredients
@@ -50,7 +51,7 @@ public class Recipe implements Writable {
         if (ingredients.contains(ing)) {
             return false;
         } else {
-            ingredients.add(ing);
+            this.ingredients.add(ing);
             return true;
         }
     }
@@ -72,7 +73,18 @@ public class Recipe implements Writable {
         JSONObject json = new JSONObject();
         json.put("name", name);
         json.put("time", time);
+        json.put("ingredients", ingredientsToJson());
         return json;
+    }
+
+    public JSONArray ingredientsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (String ing : ingredients) {
+            jsonArray.put(ing);
+        }
+
+        return jsonArray;
     }
 
 }

@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 import org.json.*;
@@ -63,8 +65,13 @@ public class JsonReader {
     private void addRecipe(RecipeBook rb, JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         int time = jsonObject.getInt("time");
-        Recipe recipe = new Recipe(name, time);
-        rb.addRecipe(recipe);
+        JSONArray ingredients = jsonObject.getJSONArray("ingredients");
+        List<String> newIngredients = new ArrayList<>();
+        for (Object ing : ingredients) {
+            newIngredients.add(ing.toString());
+        }
+        Recipe r = new Recipe(name, time, newIngredients);
+        rb.addRecipe(r);
     }
 
 }

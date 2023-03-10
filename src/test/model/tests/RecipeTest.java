@@ -1,6 +1,7 @@
 package model.tests;
 
 import model.Recipe;
+import org.json.JSONArray;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,11 +20,11 @@ public class RecipeTest {
 
     @BeforeEach
     void runBefore() {
-        pasta = new Recipe("Rigatoni Rose", 30);
-        pizza = new Recipe("Margherita", 120);
-        sandwich = new Recipe("Cajun Chicken", 15);
-        soup = new Recipe("Chicken Noodle", 25);
-        cake = new Recipe("Molten Lava", 60);
+        pasta = new Recipe("Rigatoni Rose", 30, new ArrayList<>());
+        pizza = new Recipe("Margherita", 120, new ArrayList<>());
+        sandwich = new Recipe("Cajun Chicken", 15, new ArrayList<>());
+        soup = new Recipe("Chicken Noodle", 25, new ArrayList<>());
+        cake = new Recipe("Molten Lava", 60, new ArrayList<>());
     }
 
 

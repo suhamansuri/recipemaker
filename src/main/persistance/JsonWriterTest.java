@@ -2,9 +2,11 @@ package persistance;
 
 import model.Recipe;
 import model.RecipeBook;
+import org.json.JSONArray;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,12 +30,12 @@ public class JsonWriterTest extends JsonTest {
     void testWriterEmptyWorkroom() {
         try {
             RecipeBook rb = new RecipeBook();
-            JsonWriter writer = new JsonWriter("./data/testWriterEmptyWorkroom.json");
+            JsonWriter writer = new JsonWriter("./data/testReaderEmptyRecipeBook.json");
             writer.open();
             writer.write(rb);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/testWriterEmptyWorkroom.json");
+            JsonReader reader = new JsonReader("./data/testReaderEmptyRecipeBook.json");
             rb = reader.read();
             assertEquals(0, rb.bookSize());
         } catch (IOException e) {
@@ -45,14 +47,17 @@ public class JsonWriterTest extends JsonTest {
     void testWriterGeneralWorkroom() {
         try {
             RecipeBook rb = new RecipeBook();
-            rb.addRecipe(new Recipe("cake", 60));
-            rb.addRecipe(new Recipe("pasta", 30));
-            JsonWriter writer = new JsonWriter("./data/testWriterGeneralWorkroom.json");
+            Recipe r = new Recipe("cake", 60, new ArrayList<>());
+            r.addIngredient("flour");
+            r.addIngredient("sugar");
+            rb.addRecipe(r);
+            rb.addRecipe(new Recipe("pasta", 30, new ArrayList<>()));
+            JsonWriter writer = new JsonWriter("./data/testReaderGeneralRecipeBook.json");
             writer.open();
             writer.write(rb);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/testWriterGeneralWorkroom.json");
+            JsonReader reader = new JsonReader("./data/testReaderGeneralRecipeBook.json");
             rb = reader.read();
             List<Recipe> recipes = rb.getRecipes();
             assertEquals(2, recipes.size());

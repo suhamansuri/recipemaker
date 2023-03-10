@@ -15,7 +15,7 @@ public class JsonReaderTest extends JsonTest {
 
     @Test
     void testReaderNonExistentFile() {
-        JsonReader reader = new JsonReader("./data/noSuchFile.json");
+        JsonReader reader = new JsonReader("");
         try {
             RecipeBook rb = reader.read();
             fail("IOException expected");
@@ -26,24 +26,25 @@ public class JsonReaderTest extends JsonTest {
 
     @Test
     void testReaderEmptyRecipeBook() {
-        JsonReader reader = new JsonReader("");
+        JsonReader reader = new JsonReader("./data/testReaderEmptyRecipeBook.json");
         try {
             RecipeBook rb = reader.read();
             assertEquals(0, rb.bookSize());
         } catch (IOException e) {
-            fail("...");
+            fail("Unexpected IOException: " + e);
         }
     }
 
     @Test
     void testReaderGeneralRecipeBook() {
-        JsonReader reader = new JsonReader("");
+        JsonReader reader = new JsonReader("./data/testReaderGeneralRecipeBook.json");
         try {
             RecipeBook rb = reader.read();
             List<Recipe> recipes = rb.getRecipes();
             assertEquals(2, recipes.size());
+            assertEquals(2, rb.getRecipe("cake").getIngredients().size());
         } catch (IOException e) {
-            fail("...");
+            fail("Unexpected IOException: " + e);
         }
     }
 }

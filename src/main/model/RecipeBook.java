@@ -82,7 +82,7 @@ public class RecipeBook implements Writable {
     // REQUIRES: Recipe must be in recipe book
     // EFFECTS: returns the recipe with the given name
     public Recipe getRecipe(String name) {
-        Recipe thisRecipe = new Recipe("", -1);
+        Recipe thisRecipe = new Recipe("", -1, new ArrayList<>());
         for (Recipe recipe : recipes) {
             if (name.equals(recipe.getName())) {
                 thisRecipe = recipe;

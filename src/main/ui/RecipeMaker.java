@@ -2,11 +2,13 @@ package ui;
 
 import model.Recipe;
 import model.RecipeBook;
+import org.json.JSONArray;
 import persistance.JsonReader;
 import persistance.JsonWriter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,11 +16,11 @@ import java.util.Scanner;
 public class RecipeMaker {
     private static final String JSON_STORE = "./data/workroom.json";
     private RecipeBook rb;
-    private static final String SPECIFIC_MEAL_COMMAND = "make a meal";
-    private static final String EDIT_COMMAND = "edit recipe book";
-    private static final String GENERAL_MEAL_COMMAND = "options for meals";
+    private static final String SPECIFIC_MEAL_COMMAND = "m";
+    private static final String EDIT_COMMAND = "e";
+    private static final String GENERAL_MEAL_COMMAND = "o";
     private static final String ERROR_MESSAGE = "Sorry, this recipe is not in the recipe book. Please try again";
-    private static final String VIEW_COMMAND = "view recipe book";
+    private static final String VIEW_COMMAND = "v";
     private boolean runMain;
     private Scanner input;
     private JsonWriter jsonWriter;
@@ -41,6 +43,11 @@ public class RecipeMaker {
                 analyzeInput(command);
             }
         }
+        System.out.println("Would you like to save your book? Type 'y' for yes");
+        String s = input.nextLine();
+        if (s.equals("y")) {
+            saveRecipeBook();
+        }
         System.out.println("Thank you! Goodbye.");
     }
 
@@ -61,13 +68,13 @@ public class RecipeMaker {
     }
 
     public void printOptions() {
-        System.out.println("\tTo make a  specific recipe, type " + "'" + SPECIFIC_MEAL_COMMAND + "'");
-        System.out.println("\tFor a list of options, type " + "'" + GENERAL_MEAL_COMMAND + "'");
-        System.out.println("\tTo edit or add a recipe, type " + "'" + EDIT_COMMAND + "'");
-        System.out.println("\tTo view your entire recipe book, type " + "'" + VIEW_COMMAND + "'");
-        System.out.println("\tTo save recipe book to file, type 's'");
-        System.out.println("\tTo load recipe book from file, type 'l'");
-        System.out.println("\tTo quit, type " + "'quit'");
+        System.out.println("\nTo make a  specific recipe, --> " +  SPECIFIC_MEAL_COMMAND);
+        System.out.println("\tFor a list of options, --> " + GENERAL_MEAL_COMMAND);
+        System.out.println("\tTo edit or add a recipe, --> " + EDIT_COMMAND);
+        System.out.println("\tTo view your entire recipe book, --> " + VIEW_COMMAND);
+        System.out.println("\tTo save recipe book to file, --> s");
+        System.out.println("\tTo load recipe book from file, --> l");
+        System.out.println("\tTo quit, --> " + "q");
     }
 
     public void analyzeInput(String s) {
@@ -80,12 +87,14 @@ public class RecipeMaker {
                 handleEditCommand();
             } else if (s.equals(VIEW_COMMAND)) {
                 handleViewCommand();
-            } else if (s.equals("quit")) {
+            } else if (s.equals("q")) {
                 runMain = false;
             } else if (s.equals("s")) {
                 saveRecipeBook();
+                printOptions();
             } else if (s.equals("l")) {
                 loadRecipeBook();
+                printOptions();
             } else {
                 System.out.println("Sorry, I did not understand the command. Try again");
                 printOptions();
@@ -111,13 +120,13 @@ public class RecipeMaker {
 
     public void handleOptionCommand() {
         System.out.println("You have selected option command");
-        System.out.println("Would you like a list based on time or preference?");
+        System.out.println("What would you like options based on? Type 't' for time or 'p' for ingredient preference");
         String newCommand = input.nextLine();
-        if (newCommand.equals("time")) {
+        if (newCommand.equals("t")) {
             System.out.println("What is your time limit?");
             int time = input.nextInt();
             System.out.println(rb.timeFor(time));
-        } else if (newCommand.equals("preference")) {
+        } else if (newCommand.equals("p")) {
             System.out.println("What ingredient would you like to be included?");
             String pref = input.nextLine();
             System.out.println(rb.getFavourites(pref));
@@ -130,11 +139,11 @@ public class RecipeMaker {
 
     public void handleEditCommand() {
         System.out.println("You have selected edit command, would you like to add a recipe or edit an existing one?");
-        System.out.println("Type 'add a recipe' to add and 'edit a recipe' to edit");
+        System.out.println("Type 'a' to add and 'e' to edit");
         String s = input.nextLine();
-        if (s.equals("add a recipe")) {
+        if (s.equals("a")) {
             addRecipe();
-        } else if (s.equals("edit a recipe")) {
+        } else if (s.equals("e")) {
             editRecipe();
         } else {
             System.out.println("Sorry, I did not understand the command. Try again");
@@ -149,7 +158,7 @@ public class RecipeMaker {
         name = input.nextLine();
         System.out.println("How much time does it take to make this meal? (in minutes)");
         time = input.nextInt();
-        Recipe recipe = new Recipe(name, time);
+        Recipe recipe = new Recipe(name, time, new ArrayList<>());
         rb.addRecipe(recipe);
         System.out.println("What ingredients will you use? Type 'done' if done");
         input.nextLine();
@@ -177,8 +186,8 @@ public class RecipeMaker {
         if (allRecipes.contains(name)) {
 
             System.out.println("What would you like to edit?");
-            System.out.println("Type 'time' for cook time");
-            System.out.println("Type 'ingredient' for ingredients");
+            System.out.println("Type 't' for cook time");
+            System.out.println("Type 'i' for ingredients");
             changeRecipe(recipe, input.nextLine());
 
         } else {
@@ -188,14 +197,14 @@ public class RecipeMaker {
     }
 
     public void changeRecipe(Recipe recipe, String command) {
-        if (command.equals("time")) {
+        if (command.equals("t")) {
             int time;
             System.out.println("What time would you like to change it to?");
             time = input.nextInt();
             recipe.changeTime(time);
             System.out.println("Great! We have changed the cook time to " + time + " minutes");
             printOptions();
-        } else if (command.equals("ingredient")) {
+        } else if (command.equals("i")) {
             System.out.println("Would ingredient would you like to add or remove?");
             String newIngredient;
             newIngredient = input.nextLine();
