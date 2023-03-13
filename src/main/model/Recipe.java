@@ -5,7 +5,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import persistance.Writable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 // Represents a recipe with a name, time taken to cook and list of ingredients used

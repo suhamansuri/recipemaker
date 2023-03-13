@@ -12,10 +12,19 @@ import persistance.Writable;
 // Represents all the recipes contained in the recipe book
 public class RecipeBook implements Writable {
     private List<Recipe> recipes;
+    private static String name;
 
     // EFFECTS: Constructs a new RecipeBook
-    public RecipeBook() {
+    public RecipeBook(String bookName) {
+        this.name = bookName;
         recipes = new ArrayList<>();
+    }
+
+
+
+    // EFFECTS: return the name of the recipe book
+    public String getName() {
+        return this.name;
     }
 
     // MODIFIES: this

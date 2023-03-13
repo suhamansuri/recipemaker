@@ -1,12 +1,11 @@
 package model.tests;
 
 import model.Recipe;
-import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -90,4 +89,5 @@ public class RecipeTest {
 
 
     }
+
 }

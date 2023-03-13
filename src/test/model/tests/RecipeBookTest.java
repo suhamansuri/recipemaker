@@ -23,7 +23,7 @@ public class RecipeBookTest {
 
     @BeforeEach
     void runBefore() {
-        rb = new RecipeBook();
+        rb = new RecipeBook("Suha's book");
         pasta = new Recipe("Rigatoni Rose", 30, new ArrayList<>());
         pizza = new Recipe("Margherita", 120, new ArrayList<>());
         sandwich = new Recipe("Cajun Chicken", 15, new ArrayList<>());
@@ -137,5 +137,10 @@ public class RecipeBookTest {
         assertTrue(rb.getRecipes().contains(soup));
         assertFalse(rb.getRecipes().contains(sandwich));
         assertFalse(rb.getRecipes().contains(cake));
+    }
+
+    @Test
+    void testGetName() {
+        assertEquals("Suha's book", rb.getName());
     }
 }
