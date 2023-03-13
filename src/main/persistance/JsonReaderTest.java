@@ -31,6 +31,7 @@ public class JsonReaderTest extends JsonTest {
         try {
             RecipeBook rb = reader.read();
             assertEquals(0, rb.bookSize());
+            assertEquals("Suha's book", rb.getName());
         } catch (IOException e) {
             fail("Unexpected IOException: " + e);
         }
@@ -47,7 +48,8 @@ public class JsonReaderTest extends JsonTest {
             List<String> ingredients = new ArrayList<>();
             ingredients.add("flour");
             ingredients.add("sugar");
-            checkRecipe("cake", 60, rb.getRecipe("cake"));
+            checkRecipe("cake", 60, recipes.get(0));
+            assertEquals("Suha's book", rb.getName());
         } catch (IOException e) {
             fail("Unexpected IOException: " + e);
         }

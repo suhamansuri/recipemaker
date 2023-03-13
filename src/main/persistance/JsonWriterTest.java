@@ -63,7 +63,7 @@ public class JsonWriterTest extends JsonTest {
             assertEquals(2, recipes.size());
             checkRecipe("cake", 60, recipes.get(0));
             checkRecipe("pasta", 30, recipes.get(1));
-
+            assertEquals("Suha's book", rb.getName());
         } catch (IOException e) {
             fail("Exception should not have been thrown");
         }
