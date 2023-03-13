@@ -56,12 +56,12 @@ public class JsonWriterTest extends JsonTest {
             r.addIngredient("sugar");
             rb.addRecipe(r);
             rb.addRecipe(new Recipe("pasta", 30, new ArrayList<>()));
-            JsonWriter writer = new JsonWriter("./data/testReaderGeneralRecipeBook.json");
+            JsonWriter writer = new JsonWriter("./data/testWriterGeneralRecipeBook.json");
             writer.open();
             writer.write(rb);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/testReaderGeneralRecipeBook.json");
+            JsonReader reader = new JsonReader("./data/testWriterGeneralRecipeBook.json");
             rb = reader.read();
             assertEquals("Suha's book", rb.getName());
             List<Recipe> recipes = rb.getRecipes();

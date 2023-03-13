@@ -19,7 +19,7 @@ public class JsonReaderTest extends JsonTest {
 
     @Test
     void testReaderNonExistentFile() {
-        JsonReader reader = new JsonReader("");
+        JsonReader reader = new JsonReader("./data/my/illegal/fileName.json");
         try {
             RecipeBook rb = reader.read();
             fail("IOException expected");
@@ -30,7 +30,7 @@ public class JsonReaderTest extends JsonTest {
 
     @Test
     void testReaderEmptyRecipeBook() {
-        JsonReader reader = new JsonReader("./data/testReaderEmptyRecipeBook.json");
+        JsonReader reader = new JsonReader("./data/testWriterEmptyRecipeBook.json");
         try {
             RecipeBook rb = reader.read();
             assertEquals("Suha's book", rb.getName());
