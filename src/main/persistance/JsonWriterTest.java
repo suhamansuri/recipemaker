@@ -12,7 +12,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class JsonWriterTest extends JsonTest {
+    JsonWriterTest() {
 
+    }
 
     @Test
     void testWriterInvalidFile() {

@@ -13,6 +13,9 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 
 public class JsonReaderTest extends JsonTest {
+    JsonReaderTest() {
+    }
+
 
     @Test
     void testReaderNonExistentFile() {
@@ -55,3 +58,4 @@ public class JsonReaderTest extends JsonTest {
         }
     }
 }
+
