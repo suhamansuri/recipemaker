@@ -38,14 +38,15 @@ public class JsonReader {
         StringBuilder contentBuilder = new StringBuilder();
 
         try (Stream<String> stream = Files.lines(Paths.get(source), StandardCharsets.UTF_8)) {
-            stream.forEach(contentBuilder::append);
+            stream.forEach(s -> contentBuilder.append(s));
         }
         return contentBuilder.toString();
     }
 
     // EFFECTS: parses recipeBook from JSON object and returns it
     private RecipeBook parseRecipeBook(JSONObject jsonObject) {
-        RecipeBook rb = new RecipeBook("Suha's book");
+        String name = jsonObject.getString("name");
+        RecipeBook rb = new RecipeBook(name);
         addRecipes(rb, jsonObject);
         return rb;
     }
