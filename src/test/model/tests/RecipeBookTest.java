@@ -4,7 +4,6 @@ package model.tests;
 import model.Recipe;
 import model.RecipeBook;
 import org.json.JSONArray;
-import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

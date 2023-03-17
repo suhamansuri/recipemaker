@@ -2,7 +2,6 @@ package persistance;
 
 import model.Recipe;
 import model.RecipeBook;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -20,7 +19,7 @@ public class JsonWriterTest extends JsonTest {
             RecipeBook rb = new RecipeBook("Suha's book");
             JsonWriter writer = new JsonWriter("./data/my\0illegal:fileName.json");
             writer.open();
-            Assertions.fail("IOException was expected");
+            fail("IOException was expected");
         } catch (IOException e) {
             // pass
         }
@@ -30,18 +29,17 @@ public class JsonWriterTest extends JsonTest {
     void testWriterEmptyWorkroom() {
         try {
             RecipeBook rb = new RecipeBook("Suha's book");
-            JsonWriter writer = new JsonWriter("./data/testWriterEmptyRecipeBook.json");
-
+            JsonWriter writer = new JsonWriter("./data/testReaderEmptyRecipeBook.json");
             writer.open();
             writer.write(rb);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/testWriterEmptyRecipeBook.json");
+            JsonReader reader = new JsonReader("./data/testReaderEmptyRecipeBook.json");
             rb = reader.read();
-            assertEquals("Suha's book", rb.getName());
             assertEquals(0, rb.bookSize());
+            assertEquals("Suha's book", rb.getName());
         } catch (IOException e) {
-            Assertions.fail("Exception should not have been thrown");
+            fail("Exception should not have been thrown");
         }
     }
 
@@ -61,13 +59,13 @@ public class JsonWriterTest extends JsonTest {
 
             JsonReader reader = new JsonReader("./data/testReaderGeneralRecipeBook.json");
             rb = reader.read();
-            assertEquals("Suha's book", rb.getName());
             List<Recipe> recipes = rb.getRecipes();
             assertEquals(2, recipes.size());
-            this.checkRecipe("cake", 60, recipes.get(0));
-            this.checkRecipe("pasta", 30, recipes.get(1));
+            checkRecipe("cake", 60, recipes.get(0));
+            checkRecipe("pasta", 30, recipes.get(1));
+            assertEquals("Suha's book", rb.getName());
         } catch (IOException e) {
-            Assertions.fail("Exception should not have been thrown");
+            fail("Exception should not have been thrown");
         }
     }
 
