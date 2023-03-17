@@ -2,6 +2,7 @@ package ui;
 
 import model.Recipe;
 import model.RecipeBook;
+import org.json.JSONArray;
 import persistance.JsonReader;
 import persistance.JsonWriter;
 
@@ -29,8 +30,6 @@ public class RecipeMaker {
         runRecipeMakerApp();
     }
 
-
-    // EFFECTS: starts the user interface and quits when user calls to quit
     public void runRecipeMakerApp() {
         System.out.println("What would you like to do today?");
         init();
@@ -52,9 +51,8 @@ public class RecipeMaker {
         System.out.println("Thank you! Goodbye.");
     }
 
-    //EFFECTS: initializes the recipe book
     public void init() {
-        rb = new RecipeBook("Suha's book");
+        rb = new RecipeBook();
         input = new Scanner(System.in);
         runMain = true;
         jsonWriter = new JsonWriter(JSON_STORE);
@@ -62,7 +60,6 @@ public class RecipeMaker {
 
     }
 
-    // EFFECTS: alters the input as to make it lower case to work with code
     public String fixCommandStyle(String s) {
         s = s.toLowerCase();
         s = s.trim();
@@ -70,8 +67,6 @@ public class RecipeMaker {
         return s;
     }
 
-
-    // EFFECTS: prints out a list of options for the user to use from
     public void printOptions() {
         System.out.println("\nTo make a  specific recipe, --> " +  SPECIFIC_MEAL_COMMAND);
         System.out.println("\tFor a list of options, --> " + GENERAL_MEAL_COMMAND);
@@ -82,8 +77,6 @@ public class RecipeMaker {
         System.out.println("\tTo quit, --> " + "q");
     }
 
-
-    // EFFECTS: analyzes the input from the user and calls the appropriate method
     public void analyzeInput(String s) {
         if (s.length() > 0) {
             if (s.equals(SPECIFIC_MEAL_COMMAND)) {
@@ -109,14 +102,11 @@ public class RecipeMaker {
         }
     }
 
-    // EFFECTS: prints out the name of all the names of the recipes
     public void handleViewCommand() {
         System.out.println(rb.viewBook());
         printOptions();
     }
 
-
-    // EFFECTS: prints the ingredients for the recipe you called
     public void handleMealCommand() {
         System.out.println("You have selected meal command, what would you like to make?");
         String recipe = input.nextLine();
@@ -128,7 +118,6 @@ public class RecipeMaker {
         printOptions();
     }
 
-    // EFFECTS: gives the option to choose between time or ingredient and produces a list of given choice
     public void handleOptionCommand() {
         System.out.println("You have selected option command");
         System.out.println("What would you like options based on? Type 't' for time or 'p' for ingredient preference");
@@ -148,8 +137,6 @@ public class RecipeMaker {
         printOptions();
     }
 
-
-    // EFFECTS: gives options to edit a recipe that exists by time or ingredient and add a given recipe
     public void handleEditCommand() {
         System.out.println("You have selected edit command, would you like to add a recipe or edit an existing one?");
         System.out.println("Type 'a' to add and 'e' to edit");
@@ -164,7 +151,6 @@ public class RecipeMaker {
         }
     }
 
-    // EFFECTS: handles the case of adding a recipe to the recipe book
     public void addRecipe() {
         String name;
         int time;
@@ -179,7 +165,6 @@ public class RecipeMaker {
         addIngredients(recipe);
     }
 
-    // EFFECTS: adds the ingredients for the new recipes
     public void addIngredients(Recipe recipe) {
         String ing = input.nextLine();
         if (ing.equals("done")) {
@@ -191,7 +176,6 @@ public class RecipeMaker {
         }
     }
 
-    // EFFECTS: edits the recipe based on time or ingredient
     public void editRecipe() {
         String name;
         Recipe recipe;
@@ -212,7 +196,6 @@ public class RecipeMaker {
         }
     }
 
-    // EFFECTS: works with edit recipe to edit the recipes cook time or adding an ingredient
     public void changeRecipe(Recipe recipe, String command) {
         if (command.equals("t")) {
             int time;
@@ -231,7 +214,6 @@ public class RecipeMaker {
                 recipe.addIngredient(newIngredient);
             } else {
                 recipe.removeIngredient(newIngredient);
-                System.out.println("Ok! We have removed the ingredient " + newIngredient);
             }
         }
     }

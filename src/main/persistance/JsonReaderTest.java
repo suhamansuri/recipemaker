@@ -5,7 +5,6 @@ import model.RecipeBook;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -44,10 +43,6 @@ public class JsonReaderTest extends JsonTest {
             List<Recipe> recipes = rb.getRecipes();
             assertEquals(2, recipes.size());
             assertEquals(2, rb.getRecipe("cake").getIngredients().size());
-            List<String> ingredients = new ArrayList<>();
-            ingredients.add("flour");
-            ingredients.add("sugar");
-            checkRecipe("cake", 60, rb.getRecipe("cake"));
         } catch (IOException e) {
             fail("Unexpected IOException: " + e);
         }

@@ -17,7 +17,7 @@ import org.json.*;
 
 // Represents a reader that reads recipe book from JSON data stored in file
 public class JsonReader {
-    private final String source;
+    private String source;
 
 
     // EFFECTS: constructs reader to read from source file
@@ -38,14 +38,14 @@ public class JsonReader {
         StringBuilder contentBuilder = new StringBuilder();
 
         try (Stream<String> stream = Files.lines(Paths.get(source), StandardCharsets.UTF_8)) {
-            stream.forEach(contentBuilder::append);
+            stream.forEach(s -> contentBuilder.append(s));
         }
         return contentBuilder.toString();
     }
 
     // EFFECTS: parses recipeBook from JSON object and returns it
     private RecipeBook parseRecipeBook(JSONObject jsonObject) {
-        RecipeBook rb = new RecipeBook("Suha's book");
+        RecipeBook rb = new RecipeBook();
         addRecipes(rb, jsonObject);
         return rb;
     }
