@@ -12,7 +12,7 @@ import persistance.Writable;
 // Represents all the recipes contained in the recipe book
 public class RecipeBook implements Writable {
     private List<Recipe> recipes;
-    private String name;
+    private static String name;
 
     // EFFECTS: Constructs a new RecipeBook
     public RecipeBook(String bookName) {
@@ -24,7 +24,7 @@ public class RecipeBook implements Writable {
 
     // EFFECTS: return the name of the recipe book
     public String getName() {
-        return name;
+        return this.name;
     }
 
     // MODIFIES: this
@@ -109,7 +109,6 @@ public class RecipeBook implements Writable {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("recipes", recipesToJson());
-        json.put("name", name);
         return json;
     }
 

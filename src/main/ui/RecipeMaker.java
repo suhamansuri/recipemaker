@@ -26,11 +26,6 @@ public class RecipeMaker {
     private JsonReader jsonReader;
 
     public RecipeMaker() throws FileNotFoundException {
-        rb = new RecipeBook("Suha's book");
-        input = new Scanner(System.in);
-        runMain = true;
-        jsonWriter = new JsonWriter(JSON_STORE);
-        jsonReader = new JsonReader(JSON_STORE);
         runRecipeMakerApp();
     }
 
@@ -38,6 +33,7 @@ public class RecipeMaker {
     // EFFECTS: starts the user interface and quits when user calls to quit
     public void runRecipeMakerApp() {
         System.out.println("What would you like to do today?");
+        init();
         String command;
         printOptions();
 
@@ -56,6 +52,15 @@ public class RecipeMaker {
         System.out.println("Thank you! Goodbye.");
     }
 
+    //EFFECTS: initializes the recipe book
+    public void init() {
+        rb = new RecipeBook("Suha's book");
+        input = new Scanner(System.in);
+        runMain = true;
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
+
+    }
 
     // EFFECTS: alters the input as to make it lower case to work with code
     public String fixCommandStyle(String s) {
@@ -237,7 +242,7 @@ public class RecipeMaker {
             jsonWriter.open();
             jsonWriter.write(rb);
             jsonWriter.close();
-            System.out.println("Saved " + rb.getName() + " to " + JSON_STORE);
+            System.out.println("Saved RecipeBook " + " to " + JSON_STORE);
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE);
         }
@@ -247,7 +252,7 @@ public class RecipeMaker {
     private void loadRecipeBook() {
         try {
             rb = jsonReader.read();
-            System.out.println("Loaded " + rb.getName() + " from " + JSON_STORE);
+            System.out.println("Loaded RecipeBook" + " from " + JSON_STORE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
