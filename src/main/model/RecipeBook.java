@@ -96,6 +96,8 @@ public class RecipeBook implements Writable {
         return Collections.unmodifiableList(recipes);
     }
 
+
+    // EFFECTS: adds recipe book to JSON
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -103,6 +105,7 @@ public class RecipeBook implements Writable {
         return json;
     }
 
+    // EFFECTS: parses recipe book and adds each recipe to json
     private JSONArray recipesToJson() {
         JSONArray jsonArray = new JSONArray();
 
@@ -112,4 +115,7 @@ public class RecipeBook implements Writable {
 
         return jsonArray;
     }
+
+
+
 }

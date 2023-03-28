@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 
 public class RecipeMaker {
-    private static final String JSON_STORE = "./data/workroom.json";
+    private static final String JSON_STORE = "./data/recipeBook.json";
     private RecipeBook rb;
     private static final String SPECIFIC_MEAL_COMMAND = "m";
     private static final String EDIT_COMMAND = "e";

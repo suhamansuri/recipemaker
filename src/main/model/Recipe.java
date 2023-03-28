@@ -5,14 +5,15 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import persistance.Writable;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
 // Represents a recipe with a name, time taken to cook and list of ingredients used
 public class Recipe implements Writable {
-    private final String name;
+    private String name;
     private int time;
-    private final List<String> ingredients;
+    private List<String> ingredients;
 
 
     // EFFECTS: constructs the recipe (n, loi, t, los)
@@ -68,6 +69,8 @@ public class Recipe implements Writable {
         return (ingredients.contains(ing));
     }
 
+
+    // EFFECTS: adds the recipe to json
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -77,6 +80,7 @@ public class Recipe implements Writable {
         return json;
     }
 
+    // EFFECTS: adds ingredients to json
     public JSONArray ingredientsToJson() {
         JSONArray jsonArray = new JSONArray();
 
@@ -86,6 +90,7 @@ public class Recipe implements Writable {
 
         return jsonArray;
     }
+
 
 }
 

@@ -27,7 +27,7 @@ public class JsonWriterTest extends JsonTest {
     }
 
     @Test
-    void testWriterEmptyWorkroom() {
+    void testWriterEmptyRecipeBook() {
         try {
             RecipeBook rb = new RecipeBook();
             JsonWriter writer = new JsonWriter("./data/testReaderEmptyRecipeBook.json");
@@ -44,7 +44,7 @@ public class JsonWriterTest extends JsonTest {
     }
 
     @Test
-    void testWriterGeneralWorkroom() {
+    void testWriterGeneralRecipeBook() {
         try {
             RecipeBook rb = new RecipeBook();
             Recipe r = new Recipe("cake", 60, new ArrayList<>());
