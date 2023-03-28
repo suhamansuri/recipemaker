@@ -1,7 +1,6 @@
 package ui;
 
 
-import model.Recipe;
 import model.RecipeBook;
 import persistance.JsonReader;
 import persistance.JsonWriter;
@@ -12,12 +11,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
 
 
-public class RecipeBookUI extends JPanel implements ActionListener {
+public class MainMenuUI extends JPanel implements ActionListener {
     public static final int HEIGHT = 300;
     public static final int WIDTH = 300;
+    public static final int HF = 400;
+    public static final int WF = 600;
     private static final String JSON_STORE = "./data/recipeBook.json";
 
     JButton loadButton;
@@ -32,13 +32,13 @@ public class RecipeBookUI extends JPanel implements ActionListener {
 
     RecipeBook rb;
 
-    private OptionUI editRecipeBookUI;
-    private OptionUI optionRecipeBookUI;
-    private OptionUI viewRecipeBookUI;
-    private OptionUI makeRecipeUI;
+    private OptionCommandUI editRecipeBookUI;
+    private OptionCommandUI optionRecipeBookUI;
+    private OptionCommandUI viewRecipeBookUI;
+    private OptionCommandUI makeRecipeUI;
 
 
-    public RecipeBookUI(RecipeBook rb) {
+    public MainMenuUI(RecipeBook rb) {
         this.rb = rb;
         this.setLayout(new BorderLayout());
         init();
@@ -77,6 +77,9 @@ public class RecipeBookUI extends JPanel implements ActionListener {
     }
 
 
+
+
+
     // EFFECTS: initializes GUI
     public void init() {
         loadButton = new JButton("Load recipeBook");
@@ -87,10 +90,10 @@ public class RecipeBookUI extends JPanel implements ActionListener {
         editButton = new JButton("Edit recipeBook");
         removeBox();
 
-        makeRecipeUI = new MakeRecipeUI(this::actionPerformed, rb);
-        viewRecipeBookUI = new ViewRecipeBookUI(this::actionPerformed, rb);
-        optionRecipeBookUI = new OptionRecipeBookUI(this::actionPerformed, rb);
-        editRecipeBookUI = new EditRecipeBookUI(this::actionPerformed, rb);
+//        makeRecipeUI = new MakeRecipeUI(this::actionPerformed, rb);
+//        viewRecipeBookUI = new ViewRecipeBookUI(this::actionPerformed, rb);
+//        optionRecipeBookUI = new OptionRecipeBookUI(this::actionPerformed, rb);
+//        editRecipeBookUI = new EditRecipeBookUI(this::actionPerformed, rb);
 
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
@@ -150,8 +153,12 @@ public class RecipeBookUI extends JPanel implements ActionListener {
     }
 
     private void nextPage(JPanel panel) {
-        removeAll();
-        add(panel);
+        Frame newFrame = new JFrame();
+        newFrame.add(panel);
+        newFrame.toFront();
+        newFrame.setMinimumSize(new Dimension(WF,HF));
+        newFrame.setResizable(true);
+        newFrame.setVisible(true);
         updateUI();
     }
 
@@ -163,12 +170,16 @@ public class RecipeBookUI extends JPanel implements ActionListener {
             saveRecipeBook();
 
         } else if ("make".equals(e.getActionCommand())) {
+            makeRecipeUI = new MakeRecipeUI(this::actionPerformed, rb);
             nextPage(makeRecipeUI.getPanel());
         } else if ("edit".equals(e.getActionCommand())) {
+            editRecipeBookUI = new EditBookUI(this::actionPerformed, rb);
             nextPage(editRecipeBookUI.getPanel());
         } else if ("view".equals(e.getActionCommand())) {
+            viewRecipeBookUI = new ViewRecipeBookUI(this::actionPerformed, rb);
             nextPage(viewRecipeBookUI.getPanel());
         } else if ("option".equals(e.getActionCommand())) {
+            optionRecipeBookUI = new OptionRecipeUI(this::actionPerformed, rb);
             nextPage(optionRecipeBookUI.getPanel());
         }
     }
@@ -176,7 +187,8 @@ public class RecipeBookUI extends JPanel implements ActionListener {
     // EFFECTS: loads recipe book
     public void loadRecipeBook() {
         try {
-            this.rb = jsonReader.read();
+            jsonReader.read();
+            rb = jsonReader.read();
             JOptionPane.showMessageDialog(this, "Loaded recipes from " + JSON_STORE);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Unable to load recipes from " + JSON_STORE);

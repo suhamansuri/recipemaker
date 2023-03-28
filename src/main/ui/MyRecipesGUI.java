@@ -11,7 +11,7 @@ public class MyRecipesGUI extends JFrame {
     public static final int HEIGHT = 400;
     public static final int WIDTH = 600;
 
-    private RecipeBookUI recipeBookUI;
+    private MainMenuUI recipeBookUI;
     private RecipeBook rb;
     private LogoUI logoUI;
 
@@ -38,7 +38,9 @@ public class MyRecipesGUI extends JFrame {
         this.pack();
         rb = new RecipeBook();
 
-        recipeBookUI = new RecipeBookUI(rb);
+//        testingInitiator();
+
+        recipeBookUI = new MainMenuUI(this.rb);
         logoUI = new LogoUI();
     }
 
@@ -51,4 +53,19 @@ public class MyRecipesGUI extends JFrame {
             }
         }
     }
+
+//    private void testingInitiator() {
+//        ArrayList ingredients = new ArrayList<>();
+//        ingredients.add("potatoes");
+//        ingredients.add("mayonnaise");
+//        ingredients.add("pickles");
+//        rb.addRecipe(new Recipe("Potato salad", 30, ingredients));
+//        rb.addRecipe(new Recipe("French fries", 45, new ArrayList<>()));
+//        rb.addRecipe(new Recipe("French toast", 20, new ArrayList<>()));
+//        rb.addRecipe(new Recipe("Coleslaw", 5, new ArrayList<>()));
+//        rb.addRecipe(new Recipe("PattyMelt", 120, new ArrayList<>()));
+//        rb.addRecipe(new Recipe("Milkshake", 10, new ArrayList<>()));
+//        rb.addRecipe(new Recipe("Toast", 2, new ArrayList<>()));
+
+
 }

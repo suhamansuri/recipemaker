@@ -13,7 +13,7 @@ import java.util.Vector;
 public class EditRecipeUI extends JPanel implements ActionListener {
     Recipe recipe;
     JLabel recipeLabel;
-    JComboBox comboBox;
+    JPanel panel = new JPanel();
     ActionListener al;
     JButton submit = new JButton("Submit");
     JLabel nameLabel = new JLabel("Name of recipe: ");
@@ -28,10 +28,8 @@ public class EditRecipeUI extends JPanel implements ActionListener {
     JFormattedTextField timeField;
     JList ingredientField;
 
-    public EditRecipeUI(Recipe recipe, RecipeBook rb, ActionListener al) {
-        this.recipe = recipe;
-        this.name = recipe.getName();
-        this.ingredients = recipe.getIngredients();
+    public EditRecipeUI(Recipe r, RecipeBook rb, ActionListener al) {
+
         init();
 
     }
@@ -93,5 +91,9 @@ public class EditRecipeUI extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+    }
+
+    public JPanel getPanel() {
+        return this.panel;
     }
 }

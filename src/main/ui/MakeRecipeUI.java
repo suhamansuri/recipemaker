@@ -9,13 +9,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class MakeRecipeUI extends OptionUI implements ActionListener {
+public class MakeRecipeUI extends OptionCommandUI implements ActionListener {
 
     Recipe thisRecipe;
 
     public MakeRecipeUI(ActionListener al, RecipeBook rb) {
         this.al = al;
         this.rb = rb;
+        initializeButtons();
         init();
 
 
@@ -27,26 +28,32 @@ public class MakeRecipeUI extends OptionUI implements ActionListener {
 
         if (command.contains("index")) {
             thisRecipe = getRecipeFromIndex(command);
-        } else if (command.equals("back")) {
-            reset();
+            JFrame frame = new JFrame("Ingredients for " + thisRecipe.getName());
+            frame.setMinimumSize(new Dimension(300,200));
+            String[] data = thisRecipe.getIngredients().toArray(new String[0]);
+            frame.add(new JList(data));
+            frame.pack();
+            frame.setVisible(true);
+        } else if ("back".equals(e.getActionCommand())) {
+            JComponent comp = (JComponent)e.getSource();
+            Window win = SwingUtilities.getWindowAncestor(comp);
+            win.dispose();
         }
     }
 
     @Override
     public void init() {
-        initializeButtons("make");
+        backButton.addActionListener(this);
         recipeListView = generateListView();
 
-        itemPanel.setLayout(new BorderLayout());
-        itemPanel.setMinimumSize(new Dimension(RecipeBookUI.WIDTH, RecipeBookUI.HEIGHT));
-        header(itemPanel, "What would you like to make?");
+        recipePanel.setLayout(new BorderLayout());
+        recipePanel.setMinimumSize(new Dimension(MainMenuUI.WIDTH, MainMenuUI.HEIGHT));
+        header(recipePanel, "What would you like to make?");
 
-        itemPanel.add(backButton, BorderLayout.NORTH);
-        itemPanel.add(recipeListView, BorderLayout.SOUTH);
-        itemPanel.add(new JScrollPane(recipeListView), BorderLayout.CENTER);
-        backButton.addActionListener(this);
-
-
+        recipePanel.add(backButton, BorderLayout.NORTH);
+        recipePanel.add(recipeListView, BorderLayout.SOUTH);
+        recipePanel.add(new JScrollPane(recipeListView), BorderLayout.CENTER);
+        recipePanel.setVisible(true);
     }
 
     @Override
@@ -59,13 +66,12 @@ public class MakeRecipeUI extends OptionUI implements ActionListener {
         for (int i = 0; i < recipes.size(); i++) {
             Recipe recipe = recipes.get(i);
 
-            listRecipe = new JButton(recipe.getName() + ","  + recipe.getTime());
+            listRecipe = new JButton(recipe.getName() + ", "  + "Prep time: " + recipe.getTime() + " minutes");
             listRecipe.setActionCommand("index" + i);
             listRecipe.addActionListener(this);
-            listRecipe.setPreferredSize(new Dimension(RecipeBookUI.WIDTH - 40, 25));
+            listRecipe.setPreferredSize(new Dimension(MainMenuUI.WIDTH - 40, 25));
             panel.add(listRecipe);
         }
-        panel.setVisible(true);
         return panel;
     }
 

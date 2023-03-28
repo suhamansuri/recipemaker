@@ -7,24 +7,26 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public abstract class OptionUI {
+public abstract class OptionCommandUI extends JPanel implements ActionListener {
     RecipeBook rb;
     ActionListener al;
-    String activeOption = "";
-    JPanel itemPanel = new JPanel();
+    JPanel recipePanel = new JPanel();
     JPanel recipeListView;
     JPanel buttonOptionPanel;
     JButton backButton;
     JButton addButton;
     JButton editButton;
 
+    public static final int HF = 400;
+    public static final int WF = 600;
 
-    void initializeButtons(String text) {
+
+    void initializeButtons() {
         backButton = new JButton("Back");
         backButton.setActionCommand("back");
 
         addButton = new JButton("Add a recipe");
-        addButton.setActionCommand("back");
+        addButton.setActionCommand("add");
         editButton = new JButton("Edit a recipe");
         editButton.setActionCommand("edit");
     }
@@ -38,21 +40,9 @@ public abstract class OptionUI {
 
     // EFFECTS: returns the main Panel for class
     protected JPanel getPanel() {
-        return this.itemPanel;
+        return this.recipePanel;
     }
 
-    public void reset() {
-        refresh();
-        itemPanel.removeAll();
-        itemPanel.add(backButton, BorderLayout.NORTH);
-        itemPanel.add(recipeListView, BorderLayout.CENTER);
-        itemPanel.updateUI();
-    }
-
-    protected void refresh() {
-        recipeListView = generateListView();
-        itemPanel.updateUI();
-    }
 
     // REQUIRES: txt must not be empty
     // EFFECTS: Creates header for panel
@@ -60,5 +50,14 @@ public abstract class OptionUI {
         panel.setBorder(BorderFactory.createTitledBorder(txt));
     }
 
+    protected void nextPage(JPanel panel) {
+        Frame newFrame = new JFrame();
+        newFrame.add(panel);
+        newFrame.toFront();
+        newFrame.setMinimumSize(new Dimension(WF,HF));
+        newFrame.setResizable(true);
+        newFrame.setVisible(true);
+        updateUI();
+    }
 
 }

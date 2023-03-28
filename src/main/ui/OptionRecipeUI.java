@@ -4,14 +4,15 @@ import model.Recipe;
 import model.RecipeBook;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class OptionRecipeBookUI extends OptionUI {
+public class OptionRecipeUI extends OptionCommandUI {
 
     JButton timeButton;
     JButton ingButton;
 
-    public OptionRecipeBookUI(ActionListener al, RecipeBook rb) {
+    public OptionRecipeUI(ActionListener al, RecipeBook rb) {
 
     }
 
@@ -28,5 +29,15 @@ public class OptionRecipeBookUI extends OptionUI {
     @Override
     Recipe getRecipeFromIndex(String actionCommand) {
         return null;
+    }
+
+    @Override
+    protected void nextPage(JPanel panel) {
+
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
     }
 }

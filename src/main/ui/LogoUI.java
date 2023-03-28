@@ -20,7 +20,7 @@ public class LogoUI extends JPanel {
 
     private void init() {
         setLayout(new FlowLayout());
-        setMinimumSize(new Dimension(RecipeBookUI.WIDTH, RecipeBookUI.HEIGHT));
+        setMinimumSize(new Dimension(MainMenuUI.WIDTH, MainMenuUI.HEIGHT));
 
         try {
             logo = ImageIO.read(new File(IMAGE_STORE));
@@ -28,7 +28,7 @@ public class LogoUI extends JPanel {
             picLabel.setText("Could not load image");
         }
 
-        scaledImage = logo.getScaledInstance(RecipeBookUI.WIDTH, RecipeBookUI.HEIGHT, Image.SCALE_SMOOTH);
+        scaledImage = logo.getScaledInstance(MainMenuUI.WIDTH, MainMenuUI.HEIGHT, Image.SCALE_SMOOTH);
 
         picLabel = new JLabel(new ImageIcon(scaledImage));
         add(picLabel, BorderLayout.CENTER);
