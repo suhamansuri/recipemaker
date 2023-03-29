@@ -15,6 +15,8 @@ public class EditBookUI extends OptionCommandUI implements ActionListener {
     EditRecipeUI editRecipeUI;
     AddRecipeUI addRecipeUI;
 
+
+    // EFFECTS: constructor
     public EditBookUI(ActionListener al, RecipeBook rb) {
         this.al = al;
         this.rb = rb;
@@ -22,10 +24,11 @@ public class EditBookUI extends OptionCommandUI implements ActionListener {
         init();
     }
 
+    // EFFECTS: initialize GUI
     @Override
     public void init() {
         backButton.addActionListener(this);
-        recipeListView = generateListView();
+        recipeListView = generateListRecipes();
         buttonOptionPanel = generateButtons();
 
         recipePanel.setLayout(new BorderLayout());
@@ -38,6 +41,7 @@ public class EditBookUI extends OptionCommandUI implements ActionListener {
         recipePanel.setVisible(true);
     }
 
+    // EFFECTS: initialize add button
     private JPanel generateButtons() {
         JPanel option = new JPanel();
 
@@ -50,8 +54,9 @@ public class EditBookUI extends OptionCommandUI implements ActionListener {
     }
 
 
+    // EFFECTS: add all the current recipes in rb
     @Override
-    JPanel generateListView() {
+    JPanel generateListRecipes() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(15, 1));
         JButton listRecipe;
@@ -69,6 +74,7 @@ public class EditBookUI extends OptionCommandUI implements ActionListener {
         return panel;
     }
 
+    // EFFECTS: returns the recipe that is selected by user
     @Override
     Recipe getRecipeFromIndex(String actionCommand) {
         int index = Integer.parseInt(actionCommand.substring(5));
@@ -77,6 +83,7 @@ public class EditBookUI extends OptionCommandUI implements ActionListener {
 
 
 
+    // EFFECTS: responds to action done by user in GUI
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();

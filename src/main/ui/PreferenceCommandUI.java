@@ -18,6 +18,7 @@ public class PreferenceCommandUI implements ActionListener {
     JTextField textField;
     JButton enterButton;
 
+    // EFFECTS: constructor
     public PreferenceCommandUI(RecipeBook rb, ActionListener al, String action) {
         this.rb = rb;
         this.al = al;
@@ -29,7 +30,7 @@ public class PreferenceCommandUI implements ActionListener {
         panel.add(textField = new JTextField("Enter " + action + " preference: "));
     }
 
-
+    // EFFECTS: responds to action performed by user
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == enterButton) {
@@ -53,6 +54,7 @@ public class PreferenceCommandUI implements ActionListener {
         }
     }
 
+    // EFFECTS: creates a new frame with all recipes you can make under time
     public void newTimeFrame() {
         JFrame frame = new JFrame("Recipes you can make under " + tp + " minutes:");
         frame.setMinimumSize(new Dimension(450,200));
@@ -62,6 +64,7 @@ public class PreferenceCommandUI implements ActionListener {
         frame.setVisible(true);
     }
 
+    // EFFECTS: creates a new frame with all the ingredients with given ing
     public void newIngredientFrame() {
         JFrame frame = new JFrame("Recipes you can make with " + ip);
         frame.setMinimumSize(new Dimension(450,200));
@@ -71,6 +74,7 @@ public class PreferenceCommandUI implements ActionListener {
         frame.setVisible(true);
     }
 
+    // EFFECTS: returns panel
     public JPanel getPanel() {
         return panel;
     }

@@ -30,6 +30,7 @@ public class AddRecipeUI implements ActionListener {
 
 
 
+    // EFFECTS: constructor
     public AddRecipeUI(RecipeBook rb, ActionListener al) {
         this.rb = rb;
         this.al = al;
@@ -39,6 +40,8 @@ public class AddRecipeUI implements ActionListener {
     }
 
 
+
+    // EFFECTS: initializes UI to add recipe
     public void init() {
         backButton.addActionListener(this);
         backButton.setActionCommand("back");
@@ -62,6 +65,7 @@ public class AddRecipeUI implements ActionListener {
 
     }
 
+    // EFFECTS: sets each field to have an action listener
     public void setActionListeners() {
         nameField.addActionListener(this);
         timeField.addActionListener(this);
@@ -69,6 +73,7 @@ public class AddRecipeUI implements ActionListener {
     }
 
 
+    // EFFECTS: add buttons and text fields to panel
     public JPanel getEnteredNameTime() {
         JPanel addPanel = new JPanel();
         addPanel.setLayout(new GridLayout(0, 2));
@@ -89,6 +94,7 @@ public class AddRecipeUI implements ActionListener {
     }
 
 
+    // EFFECTS: use entered fields to create a recipe and add to RB
     public void createRecipe(String name, int time, ArrayList<String> ing) {
         Recipe r = new Recipe(name, time, ing);
         rb.addRecipe(r);
@@ -102,10 +108,13 @@ public class AddRecipeUI implements ActionListener {
     }
 
 
+    // EFFECTS: return panel
     public JPanel getPanel() {
         return this.thisPanel;
     }
 
+
+    // EFFECTS: responds to the action performed by user in GUI
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("back")) {

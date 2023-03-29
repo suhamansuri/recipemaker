@@ -13,15 +13,15 @@ public class MakeRecipeUI extends OptionCommandUI implements ActionListener {
 
     Recipe thisRecipe;
 
+    // EFFECTS: constructor
     public MakeRecipeUI(ActionListener al, RecipeBook rb) {
         this.al = al;
         this.rb = rb;
         initializeButtons();
         init();
-
-
     }
 
+    // EFFECTS: responds to action performed by usr
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
@@ -41,10 +41,11 @@ public class MakeRecipeUI extends OptionCommandUI implements ActionListener {
         }
     }
 
+    // EFFECTS: initializes GUI
     @Override
     public void init() {
         backButton.addActionListener(this);
-        recipeListView = generateListView();
+        recipeListView = generateListRecipes();
 
         recipePanel.setLayout(new BorderLayout());
         recipePanel.setMinimumSize(new Dimension(MainMenuUI.WIDTH, MainMenuUI.HEIGHT));
@@ -56,8 +57,9 @@ public class MakeRecipeUI extends OptionCommandUI implements ActionListener {
         recipePanel.setVisible(true);
     }
 
+    // EFFECTS: creates a list view of each recipe currently in rb
     @Override
-    JPanel generateListView() {
+    JPanel generateListRecipes() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(0, 1));
         JButton listRecipe;
@@ -75,6 +77,7 @@ public class MakeRecipeUI extends OptionCommandUI implements ActionListener {
         return panel;
     }
 
+    // EFFECTS: returns the recipe that was selected
     @Override
     Recipe getRecipeFromIndex(String actionCommand) {
         int index = Integer.parseInt(actionCommand.substring(5));

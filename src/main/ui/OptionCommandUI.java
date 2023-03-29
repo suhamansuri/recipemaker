@@ -21,6 +21,7 @@ public abstract class OptionCommandUI extends JPanel implements ActionListener {
     public static final int WF = 600;
 
 
+    // EFFECTS: initializes buttons that are used
     void initializeButtons() {
         backButton = new JButton("Back");
         backButton.setActionCommand("back");
@@ -31,11 +32,13 @@ public abstract class OptionCommandUI extends JPanel implements ActionListener {
         editButton.setActionCommand("edit");
     }
 
+    // EFFECTS: initializes
     public abstract void init();
 
+    // EFFECTS: generates a list of recipes currently in rb
+    abstract JPanel generateListRecipes();
 
-    abstract JPanel generateListView();
-
+    // EFFECTS; returns a recipe that was selected
     abstract Recipe getRecipeFromIndex(String actionCommand);
 
     // EFFECTS: returns the main Panel for class
@@ -50,6 +53,7 @@ public abstract class OptionCommandUI extends JPanel implements ActionListener {
         panel.setBorder(BorderFactory.createTitledBorder(txt));
     }
 
+    // EFFECTS: creates the next frame
     protected void nextPage(JPanel panel) {
         Frame newFrame = new JFrame();
         newFrame.add(panel);

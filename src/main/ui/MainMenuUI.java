@@ -33,6 +33,7 @@ public class MainMenuUI extends JPanel implements ActionListener {
     RecipeBook rb;
 
 
+    // EFFECTS: constructor
     public MainMenuUI(RecipeBook rb) {
         this.rb = rb;
         this.setLayout(new BorderLayout());
@@ -42,6 +43,7 @@ public class MainMenuUI extends JPanel implements ActionListener {
         updateUI();
     }
 
+    // EFFECTS: makes the main menu panel
     public JPanel makeMainMenu() {
         JPanel thisPanel = new JPanel();
         thisPanel.setLayout(new BorderLayout());
@@ -51,17 +53,17 @@ public class MainMenuUI extends JPanel implements ActionListener {
         thisPanel.add(makeMenuButtons(), BorderLayout.CENTER);
         thisPanel.add(loadAndSaveButtons(), BorderLayout.SOUTH);
 
-        addMainEventHandlers();
+        setActionListeners();
 
         return thisPanel;
     }
 
+    // EFFECTS: creates a header with the given title
     public void header(JPanel panel, String header) {
         panel.setBorder(BorderFactory.createTitledBorder(header));
     }
 
-
-
+    // EFFECTS: adds save and load buttons
     public JPanel loadAndSaveButtons() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(0,2));
@@ -70,10 +72,6 @@ public class MainMenuUI extends JPanel implements ActionListener {
 
         return panel;
     }
-
-
-
-
 
     // EFFECTS: initializes GUI
     public void init() {
@@ -90,8 +88,7 @@ public class MainMenuUI extends JPanel implements ActionListener {
     }
 
 
-
-    // EFFECTS: makes main menu
+    // EFFECTS: makes main menu options related to rb
     public JPanel makeMenuButtons() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(1,4));
@@ -104,7 +101,8 @@ public class MainMenuUI extends JPanel implements ActionListener {
 
     }
 
-    public void addMainEventHandlers() {
+    // EFFECTS: sets action listeners and commands for each button
+    public void setActionListeners() {
         makeButton.addActionListener(this);
         makeButton.setActionCommand("make");
 
@@ -126,6 +124,7 @@ public class MainMenuUI extends JPanel implements ActionListener {
 
     }
 
+    // EFFECTS: remove box from each button
     public void removeBox() {
         loadButton.setFocusPainted(false);
         saveButton.setFocusPainted(false);
@@ -136,6 +135,7 @@ public class MainMenuUI extends JPanel implements ActionListener {
 
     }
 
+    // EFFECTS: creates the next frame
     private void nextPage(JPanel panel) {
         Frame newFrame = new JFrame();
         newFrame.add(panel);
@@ -146,6 +146,7 @@ public class MainMenuUI extends JPanel implements ActionListener {
         updateUI();
     }
 
+    // EFFECTS: responds to action performed by user in gui
     @Override
     public void actionPerformed(ActionEvent e) {
         if ("load".equals(e.getActionCommand())) {
@@ -181,7 +182,7 @@ public class MainMenuUI extends JPanel implements ActionListener {
         }
     }
 
-
+    // EFFECTS: saves recipe book
     public void saveRecipeBook() {
         try {
             jsonWriter.open();

@@ -31,6 +31,7 @@ public class EditRecipeUI extends JPanel implements ActionListener {
     ArrayList<String> ingredients = new ArrayList<>();
 
 
+    // EFFECTS: constructor
     public EditRecipeUI(Recipe r, RecipeBook rb, ActionListener al) {
         this.rb = rb;
         this.al = al;
@@ -41,6 +42,7 @@ public class EditRecipeUI extends JPanel implements ActionListener {
 
     }
 
+    // EFFECTS: initializes edit recipe ui
     public void init() {
         backButton.addActionListener(this);
         backButton.setActionCommand("back");
@@ -64,13 +66,14 @@ public class EditRecipeUI extends JPanel implements ActionListener {
 
     }
 
+    // EFFECTS: sets action listeners for text fields
     public void setActionListeners() {
         nameField.addActionListener(this);
         timeField.addActionListener(this);
         ingField.addActionListener(this);
     }
 
-
+    // EFFECTS: creates a submit button with each text field
     public JPanel getEnteredNameTime() {
         JPanel addPanel = new JPanel();
         addPanel.setLayout(new GridLayout(0, 2));
@@ -91,6 +94,7 @@ public class EditRecipeUI extends JPanel implements ActionListener {
     }
 
 
+    // EFFECTS: takes the input and changes the recipe
     public void changeRecipe(String name, Integer time, ArrayList<String> ing) {
         List<String> ingredients = recipe.getIngredients();
         if (time != null) {
@@ -117,10 +121,12 @@ public class EditRecipeUI extends JPanel implements ActionListener {
     }
 
 
+    // EFFECTS: returns the panel
     public JPanel getPanel() {
         return this.thisPanel;
     }
 
+    // EFFECTS: responds to action done by user in ui
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("back")) {

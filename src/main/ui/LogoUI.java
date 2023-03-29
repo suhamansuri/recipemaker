@@ -14,10 +14,13 @@ public class LogoUI extends JPanel {
     Image scaledImage;
     private static final String IMAGE_STORE = "./data/logo.png";
 
+
+    // EFFECTS: constructor
     public LogoUI() {
         init();
     }
 
+    // EFFECTS: initializes logo ui
     private void init() {
         setLayout(new FlowLayout());
         setMinimumSize(new Dimension(MainMenuUI.WIDTH, MainMenuUI.HEIGHT));

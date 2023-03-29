@@ -11,32 +11,29 @@ import java.util.List;
 
 public class ViewRecipeBookUI extends OptionCommandUI {
 
+    // EFFECTS: constructor
     public ViewRecipeBookUI(ActionListener al, RecipeBook rb) {
         this.al = al;
         this.rb = rb;
         initializeButtons();
         init();
-
-
     }
 
+    // EFFECTS: responds to action performed by user
     @Override
     public void actionPerformed(ActionEvent e) {
-        String command = e.getActionCommand();
-
-        if (command.contains("index")) {
-            //
-        } else if ("back".equals(e.getActionCommand())) {
+        if  ("back".equals(e.getActionCommand())) {
             JComponent comp = (JComponent)e.getSource();
             Window win = SwingUtilities.getWindowAncestor(comp);
             win.dispose();
         }
     }
 
+    // EFFECTS: initializes buttons
     @Override
     public void init() {
         backButton.addActionListener(this);
-        recipeListView = generateListView();
+        recipeListView = generateListRecipes();
 
         recipePanel.setLayout(new BorderLayout());
         recipePanel.setMinimumSize(new Dimension(MainMenuUI.WIDTH, MainMenuUI.HEIGHT));
@@ -48,8 +45,9 @@ public class ViewRecipeBookUI extends OptionCommandUI {
         recipePanel.setVisible(true);
     }
 
+    // EFFECTS: generates a list of all recipe names currently in GUI
     @Override
-    JPanel generateListView() {
+    JPanel generateListRecipes() {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(0, 1));
         JButton listRecipe;
@@ -67,6 +65,7 @@ public class ViewRecipeBookUI extends OptionCommandUI {
         return panel;
     }
 
+    // EFFECTS: returns recipe selected
     @Override
     Recipe getRecipeFromIndex(String actionCommand) {
         int index = Integer.parseInt(actionCommand.substring(5));

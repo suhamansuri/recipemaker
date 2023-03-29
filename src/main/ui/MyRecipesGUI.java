@@ -6,7 +6,6 @@ import model.RecipeBook;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
 
 public class MyRecipesGUI extends JFrame {
     public static final int HEIGHT = 400;
@@ -16,6 +15,8 @@ public class MyRecipesGUI extends JFrame {
     private RecipeBook rb;
     private LogoUI logoUI;
 
+
+    // EFFECTS: start GUI with LOGO and main menu
     public MyRecipesGUI() {
         super("RecipeBook");
         init();
@@ -31,6 +32,7 @@ public class MyRecipesGUI extends JFrame {
         pack();
     }
 
+    // EFFECTS: initialize starting frame
     public void init() {
         this.setVisible(true);
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -45,6 +47,8 @@ public class MyRecipesGUI extends JFrame {
         logoUI = new LogoUI();
     }
 
+
+    // EFFECTS: closes window frame
     @Override
     protected void processWindowEvent(WindowEvent e) {
         super.processWindowEvent(e);
