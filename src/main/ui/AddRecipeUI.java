@@ -55,7 +55,7 @@ public class AddRecipeUI implements ActionListener {
         thisPanel.setLayout(new BorderLayout());
         thisPanel.setMinimumSize(new Dimension(MainMenuUI.WIDTH, MainMenuUI.HEIGHT));
         thisPanel.add(backButton, BorderLayout.NORTH);
-        header(thisPanel, "Please enter the following fields:");
+        header(thisPanel);
         recipeField = getEnteredNameTime();
         thisPanel.add(recipeField, BorderLayout.CENTER);
         thisPanel.add(submitButton, BorderLayout.SOUTH);
@@ -97,8 +97,8 @@ public class AddRecipeUI implements ActionListener {
 
     // REQUIRES: txt must not be empty
     // EFFECTS: Creates header for panel
-    protected void header(JPanel panel, String txt) {
-        panel.setBorder(BorderFactory.createTitledBorder(txt));
+    protected void header(JPanel panel) {
+        panel.setBorder(BorderFactory.createTitledBorder("Please enter the following fields:"));
     }
 
 
@@ -122,7 +122,11 @@ public class AddRecipeUI implements ActionListener {
         } else if (e.getSource() == enterName) {
             this.name = nameField.getText();
         } else if (e.getSource() == enterTime) {
-            this.time = Integer.parseInt(timeField.getText());
+            try {
+                this.time = Integer.parseInt(timeField.getText());
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Error, cannot enter text as time");
+            }
         } else if (e.getSource() == enterIng) {
             this.ingredients.add(ingField.getText());
         }

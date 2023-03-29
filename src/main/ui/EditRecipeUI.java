@@ -57,7 +57,7 @@ public class EditRecipeUI extends JPanel implements ActionListener {
         thisPanel.setLayout(new BorderLayout());
         thisPanel.setMinimumSize(new Dimension(MainMenuUI.WIDTH, MainMenuUI.HEIGHT));
         thisPanel.add(backButton, BorderLayout.NORTH);
-        header(thisPanel, "Edit the fields you would like to change:");
+        header(thisPanel);
         recipeField = getEnteredNameTime();
         thisPanel.add(recipeField, BorderLayout.CENTER);
         thisPanel.add(submitButton, BorderLayout.SOUTH);
@@ -112,8 +112,8 @@ public class EditRecipeUI extends JPanel implements ActionListener {
 
     // REQUIRES: txt must not be empty
     // EFFECTS: Creates header for panel
-    protected void header(JPanel panel, String txt) {
-        panel.setBorder(BorderFactory.createTitledBorder(txt));
+    protected void header(JPanel panel) {
+        panel.setBorder(BorderFactory.createTitledBorder("Edit the fields you would like to change:"));
     }
 
 
@@ -133,7 +133,11 @@ public class EditRecipeUI extends JPanel implements ActionListener {
         } else if (e.getSource() == enterName) {
             this.name = nameField.getText();
         } else if (e.getSource() == enterTime) {
-            this.time = Integer.parseInt(timeField.getText());
+            try {
+                this.time = Integer.parseInt(timeField.getText());
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Error, cannot enter text as time");
+            }
         } else if (e.getSource() == enterIng) {
             this.ingredients.add(ingField.getText());
         }

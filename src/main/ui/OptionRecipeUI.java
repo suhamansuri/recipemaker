@@ -7,122 +7,115 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.List;
 
-public class OptionRecipeUI  implements  ActionListener {
+public class OptionRecipeUI extends OptionCommandUI implements ActionListener {
 
-    JButton timeButton;
     JButton ingButton;
-    RecipeBook rb;
-    ActionListener al;
-    JPanel thisPanel = new JPanel();
-    JButton submitButton;
-    JButton backButton;
-    JPanel recipeField;
-
-    JButton enterName;
-    JButton enterTime;
-    JButton enterIng;
-    JTextField nameField;
-    JTextField timeField;
-    JTextField ingField;
-
-    String name;
-    Integer time;
-    ArrayList<String> ingredients = new ArrayList<>();
+    JButton timeButton;
+    String action;
+    PreferenceCommandUI timePref;
+    PreferenceCommandUI ingPref;
+    String prefChosen;
+    int timeChosen;
+    String command;
 
 
     public OptionRecipeUI(ActionListener al, RecipeBook rb) {
-
+        this.al = al;
+        this.rb = rb;
+        initializeButtons();
+        init();
     }
 
 
+    @Override
     public void init() {
         backButton.addActionListener(this);
-        backButton.setActionCommand("back");
-        submitButton.addActionListener(this);
-        submitButton.setActionCommand("submit");
-        enterName = new JButton("Submit name");
-        enterTime = new JButton("Submit Time");
-        enterIng = new JButton("Enter Ingredient");
-        enterName.addActionListener(this);
-        enterTime.addActionListener(this);
-        enterIng.addActionListener(this);
+        recipeListView = generateListView();
+        buttonOptionPanel = generateButtons();
 
+        recipePanel.setLayout(new BorderLayout());
+        recipePanel.setMinimumSize(new Dimension(MainMenuUI.WIDTH, MainMenuUI.HEIGHT));
+        header(recipePanel, "Would you like options based on time or ingredient?");
 
-        thisPanel.setLayout(new BorderLayout());
-        thisPanel.setMinimumSize(new Dimension(MainMenuUI.WIDTH, MainMenuUI.HEIGHT));
-        thisPanel.add(backButton, BorderLayout.NORTH);
-        header(thisPanel, "Please enter the following fields:");
-        recipeField = getEnteredNameTime();
-        thisPanel.add(recipeField, BorderLayout.CENTER);
-        thisPanel.add(submitButton, BorderLayout.SOUTH);
-
+        recipePanel.add(backButton, BorderLayout.NORTH);
+        recipePanel.add(recipeListView);
+        recipePanel.add(buttonOptionPanel, BorderLayout.SOUTH);
+        recipePanel.setVisible(true);
     }
 
-    public void setActionListeners() {
-        nameField.addActionListener(this);
-        timeField.addActionListener(this);
-        ingField.addActionListener(this);
-    }
+    private JPanel generateButtons() {
+        JPanel option = new JPanel();
 
+        option.setLayout(new GridLayout(1, 0));
+        ingButton = new JButton("Ingredient");
+        timeButton = new JButton("Time");
+        option.add(ingButton);
+        option.add(timeButton);
+        ingButton.addActionListener(this);
+        timeButton.addActionListener(this);
+        ingButton.setActionCommand("ing");
+        timeButton.setActionCommand("time");
 
-    public JPanel getEnteredNameTime() {
-        JPanel addPanel = new JPanel();
-        addPanel.setLayout(new GridLayout(0, 2));
-        nameField = new JTextField("Enter name");
-        nameField.setBounds(50, 100, 200, 30);
-        timeField = new JTextField("Enter time");
-        timeField.setBounds(50, 100, 200, 30);
-        ingField = new JTextField("Enter ingredient");
-        ingField.setBounds(50, 100, 200, 30);
-        addPanel.add(enterName);
-        addPanel.add(nameField);
-        addPanel.add(enterTime);
-        addPanel.add(timeField);
-        addPanel.add(enterIng);
-        addPanel.add(ingField);
-        setActionListeners();
-        return addPanel;
+        return option;
     }
 
 
-    public void createRecipe(String name, int time, ArrayList<String> ing) {
-        Recipe r = new Recipe(name, time, ing);
-        rb.addRecipe(r);
+    @Override
+    JPanel generateListView() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(15, 1));
+        JButton listRecipe;
+        List<Recipe> recipes = rb.getRecipes();
 
-    }
+        for (int i = 0; i < recipes.size(); i++) {
+            Recipe recipe = recipes.get(i);
 
-    // REQUIRES: txt must not be empty
-    // EFFECTS: Creates header for panel
-    protected void header(JPanel panel, String txt) {
-        panel.setBorder(BorderFactory.createTitledBorder(txt));
-    }
-
-
-    public JPanel getPanel() {
-        return this.thisPanel;
+            listRecipe = new JButton(recipe.getName() + ", " + "Prep time: " + recipe.getTime() + " minutes");
+            listRecipe.setActionCommand("index" + i);
+            listRecipe.addActionListener(this);
+            listRecipe.setPreferredSize(new Dimension(MainMenuUI.WIDTH - 40, 10));
+            panel.add(listRecipe);
+        }
+        return panel;
     }
 
     @Override
+    Recipe getRecipeFromIndex(String actionCommand) {
+        int index = Integer.parseInt(actionCommand.substring(5));
+        return rb.getRecipes().get(index);
+    }
+
+
+    @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals("back")) {
+        command = e.getActionCommand();
+        if (command.equals("ing")) {
+            action = "ingredient";
+            ingPref = new PreferenceCommandUI(rb, al, action);
+            nextPage(ingPref.getPanel());
+
+
+        } else if (command.equals("time")) {
+            action = "time";
+            timePref = new PreferenceCommandUI(rb, al, action);
+            nextPage(timePref.getPanel());
+        } else if ("back".equals(e.getActionCommand())) {
             JComponent comp = (JComponent) e.getSource();
             Window win = SwingUtilities.getWindowAncestor(comp);
             win.dispose();
-        } else if (e.getActionCommand().equals("submit")) {
-            if (this.name == null | this.time == null) {
-                JOptionPane.showMessageDialog(null, "ERROR: cannot add recipe");
-            } else {
-                createRecipe(this.name, this.time, this.ingredients);
-                JOptionPane.showMessageDialog(null, "Great! We have added this recipe!");
-            }
-        } else if (e.getSource() == enterName) {
-            this.name = nameField.getText();
-        } else if (e.getSource() == enterTime) {
-            this.time = Integer.parseInt(timeField.getText());
-        } else if (e.getSource() == enterIng) {
-            this.ingredients.add(ingField.getText());
         }
+    }
+
+    @Override
+    protected void nextPage(JPanel panel) {
+        Frame newFrame = new JFrame();
+        newFrame.add(panel);
+        newFrame.toFront();
+        newFrame.setMinimumSize(new Dimension(300, 80));
+        newFrame.setResizable(true);
+        newFrame.setVisible(true);
+        updateUI();
     }
 }

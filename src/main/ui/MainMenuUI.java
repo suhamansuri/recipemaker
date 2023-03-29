@@ -32,11 +32,6 @@ public class MainMenuUI extends JPanel implements ActionListener {
 
     RecipeBook rb;
 
-    private OptionCommandUI editRecipeBookUI;
-    private OptionCommandUI optionRecipeBookUI;
-    private OptionCommandUI viewRecipeBookUI;
-    private OptionCommandUI makeRecipeUI;
-
 
     public MainMenuUI(RecipeBook rb) {
         this.rb = rb;
@@ -90,11 +85,6 @@ public class MainMenuUI extends JPanel implements ActionListener {
         editButton = new JButton("Edit recipeBook");
         removeBox();
 
-//        makeRecipeUI = new MakeRecipeUI(this::actionPerformed, rb);
-//        viewRecipeBookUI = new ViewRecipeBookUI(this::actionPerformed, rb);
-//        optionRecipeBookUI = new OptionRecipeBookUI(this::actionPerformed, rb);
-//        editRecipeBookUI = new EditRecipeBookUI(this::actionPerformed, rb);
-
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
     }
@@ -146,12 +136,6 @@ public class MainMenuUI extends JPanel implements ActionListener {
 
     }
 
-    private void reset() {
-        removeAll();
-        init();
-        updateUI();
-    }
-
     private void nextPage(JPanel panel) {
         Frame newFrame = new JFrame();
         newFrame.add(panel);
@@ -170,16 +154,16 @@ public class MainMenuUI extends JPanel implements ActionListener {
             saveRecipeBook();
 
         } else if ("make".equals(e.getActionCommand())) {
-            makeRecipeUI = new MakeRecipeUI(this::actionPerformed, rb);
+            OptionCommandUI makeRecipeUI = new MakeRecipeUI(this, rb);
             nextPage(makeRecipeUI.getPanel());
         } else if ("edit".equals(e.getActionCommand())) {
-            editRecipeBookUI = new EditBookUI(this::actionPerformed, rb);
+            OptionCommandUI editRecipeBookUI = new EditBookUI(this, rb);
             nextPage(editRecipeBookUI.getPanel());
         } else if ("view".equals(e.getActionCommand())) {
-            viewRecipeBookUI = new ViewRecipeBookUI(this::actionPerformed, rb);
+            OptionCommandUI viewRecipeBookUI = new ViewRecipeBookUI(this, rb);
             nextPage(viewRecipeBookUI.getPanel());
         } else if ("option".equals(e.getActionCommand())) {
-            optionRecipeBookUI = new OptionRecipeUI(this::actionPerformed, rb);
+            OptionCommandUI optionRecipeBookUI = new OptionRecipeUI(this, rb);
             nextPage(optionRecipeBookUI.getPanel());
         }
     }

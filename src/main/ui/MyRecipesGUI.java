@@ -6,6 +6,7 @@ import model.RecipeBook;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 public class MyRecipesGUI extends JFrame {
     public static final int HEIGHT = 400;
@@ -21,7 +22,7 @@ public class MyRecipesGUI extends JFrame {
         add(logoUI);
         pack();
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1500);
         } catch (InterruptedException e) {
             return;
         }
@@ -66,6 +67,7 @@ public class MyRecipesGUI extends JFrame {
 //        rb.addRecipe(new Recipe("PattyMelt", 120, new ArrayList<>()));
 //        rb.addRecipe(new Recipe("Milkshake", 10, new ArrayList<>()));
 //        rb.addRecipe(new Recipe("Toast", 2, new ArrayList<>()));
+//    }
 
 
 }

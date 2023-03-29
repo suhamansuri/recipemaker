@@ -12,7 +12,6 @@ import java.util.List;
 public class EditBookUI extends OptionCommandUI implements ActionListener {
 
     Recipe thisRecipe;
-    MainMenuUI rbUI;
     EditRecipeUI editRecipeUI;
     AddRecipeUI addRecipeUI;
 
