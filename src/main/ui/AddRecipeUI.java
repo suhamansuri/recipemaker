@@ -28,7 +28,6 @@ public class AddRecipeUI implements ActionListener {
     Integer time;
     ArrayList<String> ingredients = new ArrayList<>();
 
-    Action action;
 
 
     public AddRecipeUI(RecipeBook rb, ActionListener al) {
@@ -114,7 +113,7 @@ public class AddRecipeUI implements ActionListener {
             Window win = SwingUtilities.getWindowAncestor(comp);
             win.dispose();
         } else if (e.getActionCommand().equals("submit")) {
-            if (this.name == null | this.time == null | this.ingredients == null) {
+            if (this.name == null | this.time == null) {
                 JOptionPane.showMessageDialog(null, "ERROR: cannot add recipe");
             } else {
                 createRecipe(this.name, this.time, this.ingredients);
@@ -126,7 +125,6 @@ public class AddRecipeUI implements ActionListener {
             this.time = Integer.parseInt(timeField.getText());
         } else if (e.getSource() == enterIng) {
             this.ingredients.add(ingField.getText());
-            System.out.println(this.ingredients);
         }
     }
 }

@@ -7,78 +7,107 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 public class EditRecipeUI extends JPanel implements ActionListener {
-    Recipe recipe;
-    JLabel recipeLabel;
-    JPanel panel = new JPanel();
+    RecipeBook rb;
     ActionListener al;
-    JButton submit = new JButton("Submit");
-    JLabel nameLabel = new JLabel("Name of recipe: ");
-    JLabel timeLabel = new JLabel("Preparation time: ");
-    JLabel ingredientsLabel = new JLabel("Ingredients: ");
+    JPanel thisPanel = new JPanel();
+    JButton submitButton;
+    JButton backButton;
+    JPanel recipeField;
 
+    JButton enterName;
+    JButton enterTime;
+    JButton enterIng;
+    JTextField nameField;
+    JTextField timeField;
+    JTextField ingField;
+
+    Recipe recipe;
     String name;
-    int time;
-    List<String> ingredients;
+    Integer time;
+    ArrayList<String> ingredients = new ArrayList<>();
 
-    JFormattedTextField nameField;
-    JFormattedTextField timeField;
-    JList ingredientField;
 
     public EditRecipeUI(Recipe r, RecipeBook rb, ActionListener al) {
-
+        this.rb = rb;
+        this.al = al;
+        this.recipe = r;
+        backButton = new JButton("Back");
+        submitButton = new JButton("Submit");
         init();
 
     }
 
     public void init() {
-        this.setLayout(new BorderLayout());
-        this.setVisible(true);
-        header(this, "Edit " + name);
+        backButton.addActionListener(this);
+        backButton.setActionCommand("back");
+        submitButton.addActionListener(this);
+        submitButton.setActionCommand("submit");
+        enterName = new JButton("Change name");
+        enterTime = new JButton("Change Time");
+        enterIng = new JButton("Add/Remove Ingredient");
+        enterName.addActionListener(this);
+        enterTime.addActionListener(this);
+        enterIng.addActionListener(this);
 
-        initializeFields();
-        initializeButtons();
 
-        add(generateFields(), BorderLayout.CENTER);
-        add(submit, BorderLayout.SOUTH);
-    }
-
-    public void initializeFields() {
-        nameField = new JFormattedTextField();
-        timeField = new JFormattedTextField();
-        ingredientField = new JList<>();
-
-        nameField.setText(name);
-        timeField.setText(String.valueOf(time));
-        ingredientField.setListData((Vector) ingredients);
-
-    }
-
-    public void initializeButtons() {
-        submit.setActionCommand("submit");
-        submit.addActionListener(this);
-        submit.addActionListener(al);
+        thisPanel.setLayout(new BorderLayout());
+        thisPanel.setMinimumSize(new Dimension(MainMenuUI.WIDTH, MainMenuUI.HEIGHT));
+        thisPanel.add(backButton, BorderLayout.NORTH);
+        header(thisPanel, "Edit the fields you would like to change:");
+        recipeField = getEnteredNameTime();
+        thisPanel.add(recipeField, BorderLayout.CENTER);
+        thisPanel.add(submitButton, BorderLayout.SOUTH);
 
     }
 
-    public JPanel generateFields() {
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(4,2));
-        header(panel, "Edit fields below");
+    public void setActionListeners() {
+        nameField.addActionListener(this);
+        timeField.addActionListener(this);
+        ingField.addActionListener(this);
+    }
 
-        panel.add(nameLabel);
-        panel.add(nameField);
 
-        panel.add(timeLabel);
-        panel.add(timeField);
+    public JPanel getEnteredNameTime() {
+        JPanel addPanel = new JPanel();
+        addPanel.setLayout(new GridLayout(0, 2));
+        nameField = new JTextField(recipe.getName());
+        nameField.setBounds(50, 100, 200, 30);
+        timeField = new JTextField(recipe.getTime().toString());
+        timeField.setBounds(50, 100, 200, 30);
+        ingField = new JTextField(String.valueOf(recipe.getIngredients()));
+        ingField.setBounds(50, 100, 200, 30);
+        addPanel.add(enterName);
+        addPanel.add(nameField);
+        addPanel.add(enterTime);
+        addPanel.add(timeField);
+        addPanel.add(enterIng);
+        addPanel.add(ingField);
+        setActionListeners();
+        return addPanel;
+    }
 
-        panel.add(ingredientsLabel);
-        panel.add(ingredientField);
 
-        return panel;
+    public void changeRecipe(String name, Integer time, ArrayList<String> ing) {
+        List<String> ingredients = recipe.getIngredients();
+        if (time != null) {
+            recipe.changeTime(time);
+        }
+        if (name != null) {
+            recipe.changeName(name);
+        }
+        if (ing != null) {
+            for (String i : ing) {
+                if (ingredients.contains(i)) {
+                    recipe.removeIngredient(i);
+                } else {
+                    recipe.addIngredient(i);
+                }
+            }
+        }
     }
 
     // REQUIRES: txt must not be empty
@@ -88,12 +117,26 @@ public class EditRecipeUI extends JPanel implements ActionListener {
     }
 
 
+    public JPanel getPanel() {
+        return this.thisPanel;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-
-    }
-
-    public JPanel getPanel() {
-        return this.panel;
+        if (e.getActionCommand().equals("back")) {
+            JComponent comp = (JComponent) e.getSource();
+            Window win = SwingUtilities.getWindowAncestor(comp);
+            win.dispose();
+        } else if (e.getActionCommand().equals("submit")) {
+            changeRecipe(this.name, this.time, this.ingredients);
+            JOptionPane.showMessageDialog(null, "Great! We have edited this recipe!");
+        } else if (e.getSource() == enterName) {
+            this.name = nameField.getText();
+        } else if (e.getSource() == enterTime) {
+            this.time = Integer.parseInt(timeField.getText());
+        } else if (e.getSource() == enterIng) {
+            this.ingredients.add(ingField.getText());
+        }
     }
 }
+

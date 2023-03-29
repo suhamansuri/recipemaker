@@ -70,6 +70,12 @@ public class Recipe implements Writable {
     }
 
 
+    // EFFECTS: changes name of recipe
+    public void changeName(String newName) {
+        this.name = newName;
+    }
+
+
     // EFFECTS: adds the recipe to json
     @Override
     public JSONObject toJson() {
