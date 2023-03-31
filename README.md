@@ -30,3 +30,16 @@ I had.
 - As a user, I want to be able to load my recipe book from file (if i choose)
 - As a user, I want to be reminded to save my book to file and have the option not to
 - As a user, I want to be given the option to load my recipe book
+
+
+Instructions for Grader:
+- There are four buttons each with a different purpose pertaining to the recipebook
+- Press make a recipe to select a recipe and recipe the ingredients
+- Press edit recipe book to edit a recipe by selecting the recipe you would like to edit
+- Make sure when editing and adding the recipe that you select the "Enter" buttons next to each text field
+- To get a list of options for meals, select options for meals and choose ingredient or time
+- Enter the ingredient you wish to eat or the time that you have
+- Select view Recipe book for a list of all the recipe names
+- The visual component is in data labelled logo.png
+- Save application by pressing the save button
+- Load application by pressing the load button
