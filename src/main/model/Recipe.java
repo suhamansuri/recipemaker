@@ -43,7 +43,10 @@ public class Recipe implements Writable {
     // MODIFIES: this.time
     // EFFECTS: changes the time took to prepare recipe
     public void changeTime(int cookTime) {
+
         this.time = cookTime;
+        EventLog.getInstance().logEvent(new Event(
+                "Changed '" + this.getName() + "' cook time to " + cookTime + " minutes"));
     }
 
     // MODIFIES: this.ingredients
@@ -53,6 +56,8 @@ public class Recipe implements Writable {
             return false;
         } else {
             this.ingredients.add(ing);
+            EventLog.getInstance().logEvent(new Event(
+                    "Added '" + ing + "' to " + this.getName()));
             return true;
         }
     }
@@ -61,7 +66,10 @@ public class Recipe implements Writable {
     // MODIFIES: this.ingredients
     // EFFECTS: removes the given ingredient from list of ingredients
     public void removeIngredient(String ing) {
+
         ingredients.remove(ing);
+        EventLog.getInstance().logEvent(new Event(
+                "Removed '" + ing + "' from " + this.getName()));;
     }
 
     // EFFECTS: returns true if the recipe uses inputted ingredient, otherwise false

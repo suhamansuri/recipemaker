@@ -1,5 +1,7 @@
 package ui;
 
+import model.Event;
+import model.EventLog;
 import model.Recipe;
 import model.RecipeBook;
 
@@ -53,8 +55,8 @@ public class MyRecipesGUI extends JFrame {
     protected void processWindowEvent(WindowEvent e) {
         super.processWindowEvent(e);
         if (e.getID() == WindowEvent.WINDOW_CLOSING) {
-            for (Recipe recipe : rb.getRecipes()) {
-                System.out.println(recipe.toString() + "\n");
+            for (Event event : EventLog.getInstance()) {
+                System.out.println(event.toString() + "\n");
             }
         }
     }

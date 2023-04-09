@@ -2,11 +2,12 @@ package model;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import persistance.Writable;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import persistance.Writable;
+import model.EventLog;
 
 
 // Represents all the recipes contained in the recipe book
@@ -25,6 +26,7 @@ public class RecipeBook implements Writable {
             return false;
         } else {
             recipes.add(r);
+            EventLog.getInstance().logEvent(new Event("Added Recipe '" + r.getName() + "' to RecipeBook"));
             return true;
         }
     }
@@ -97,6 +99,7 @@ public class RecipeBook implements Writable {
     }
 
 
+    // EFFECTS: adds recipe book to JSON
     // EFFECTS: adds recipe book to JSON
     @Override
     public JSONObject toJson() {
