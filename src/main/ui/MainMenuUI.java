@@ -20,17 +20,17 @@ public class MainMenuUI extends JPanel implements ActionListener {
     public static final int WF = 600;
     private static final String JSON_STORE = "./data/recipeBook.json";
 
-    JButton loadButton;
-    JButton saveButton;
-    JButton makeButton;
-    JButton viewButton;
-    JButton editButton;
-    JButton optionButton;
+    private JButton loadButton;
+    private JButton saveButton;
+    private JButton makeButton;
+    private JButton viewButton;
+    private JButton editButton;
+    private JButton optionButton;
 
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
-    RecipeBook rb;
+    private RecipeBook rb;
 
 
     // EFFECTS: constructor

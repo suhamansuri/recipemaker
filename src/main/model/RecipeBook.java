@@ -7,7 +7,6 @@ import persistance.Writable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import model.EventLog;
 
 
 // Represents all the recipes contained in the recipe book

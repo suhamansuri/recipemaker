@@ -2,7 +2,6 @@ package ui;
 
 import model.Event;
 import model.EventLog;
-import model.Recipe;
 import model.RecipeBook;
 
 import javax.swing.*;
@@ -43,7 +42,7 @@ public class MyRecipesGUI extends JFrame {
         this.pack();
         rb = new RecipeBook();
 
-//        testingInitiator();
+//      testingInitiator();
 
         recipeBookUI = new MainMenuUI(this.rb);
         logoUI = new LogoUI();

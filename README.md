@@ -33,7 +33,7 @@ I had.
 
 
 Instructions for Grader:
-- There are four buttons each with a different purpose pertaining to the recipebook
+- There are four buttons each with a different purpose pertaining to the recipeBook
 - Press make a recipe to select a recipe and recipe the ingredients
 - Press edit recipe book to edit a recipe by selecting the recipe you would like to edit
 - Make sure when editing and adding the recipe that you select the "Enter" buttons next to each text field
@@ -43,3 +43,81 @@ Instructions for Grader:
 - The visual component is in data labelled logo.png
 - Save application by pressing the save button
 - Load application by pressing the load button
+
+Sample of events that occur when program is run, loaded and a recipe is edited:
+Wed Apr 12 18:37:37 PDT 2023
+Added Recipe 'Potato salad' to RecipeBook
+
+Wed Apr 12 18:37:37 PDT 2023
+Added Recipe 'French fries' to RecipeBook
+
+Wed Apr 12 18:37:37 PDT 2023
+Added Recipe 'French toast' to RecipeBook
+
+Wed Apr 12 18:37:37 PDT 2023
+Added Recipe 'Coleslaw' to RecipeBook
+
+Wed Apr 12 18:37:37 PDT 2023
+Added Recipe 'PattyMelt' to RecipeBook
+
+Wed Apr 12 18:37:37 PDT 2023
+Added Recipe 'Milkshake' to RecipeBook
+
+Wed Apr 12 18:37:37 PDT 2023
+Added Recipe 'Toast' to RecipeBook
+
+Wed Apr 12 18:37:37 PDT 2023
+Added Recipe 'Cheeseburger' to RecipeBook
+
+Wed Apr 12 18:37:37 PDT 2023
+Added Recipe 'Chicken breast' to RecipeBook
+
+Wed Apr 12 18:37:37 PDT 2023
+Added Recipe 'Croissant sandwich' to RecipeBook
+
+Wed Apr 12 18:37:37 PDT 2023
+Added Recipe 'Potato salad' to RecipeBook
+
+Wed Apr 12 18:37:37 PDT 2023
+Added Recipe 'French fries' to RecipeBook
+
+Wed Apr 12 18:37:37 PDT 2023
+Added Recipe 'French toast' to RecipeBook
+
+Wed Apr 12 18:37:37 PDT 2023
+Added Recipe 'Coleslaw' to RecipeBook
+
+Wed Apr 12 18:37:37 PDT 2023
+Added Recipe 'PattyMelt' to RecipeBook
+
+Wed Apr 12 18:37:37 PDT 2023
+Added Recipe 'Milkshake' to RecipeBook
+
+Wed Apr 12 18:37:37 PDT 2023
+Added Recipe 'Toast' to RecipeBook
+
+Wed Apr 12 18:37:37 PDT 2023
+Added Recipe 'Cheeseburger' to RecipeBook
+
+Wed Apr 12 18:37:37 PDT 2023
+Added Recipe 'Chicken breast' to RecipeBook
+
+Wed Apr 12 18:37:37 PDT 2023
+Added Recipe 'Croissant sandwich' to RecipeBook
+
+Wed Apr 12 18:38:21 PDT 2023
+Changed 'Cheeseburger' cook time to 40 minutes
+
+
+Process finished with exit code 0
+
+
+Possible refactoring:
+I would change the recipe class to include an ingredient class as its list of ingredients instead of list of string.
+This would allow me to add features to ingredients such as whether I currently have them at home, or their relative price.
+I would also edit my GUI to not open a new frame when an option was selected and rather a new panel was opened.
+I find this makes it less of a busy application as there are not many tabs open. 
+Lastly, I would potentially also add a class that produces a list of all steps required to make each recipe.
+This would be lengthy and tedious, however would then pose as an actual recipeBook. I would consider this if it did not 
+add too many words and make the application busy. Thus, I would attempt it before proceeding.
+

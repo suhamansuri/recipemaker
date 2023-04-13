@@ -9,9 +9,9 @@ import java.io.IOException;
 
 public class LogoUI extends JPanel {
 
-    JLabel picLabel;
-    BufferedImage logo;
-    Image scaledImage;
+    private JLabel picLabel;
+    private BufferedImage logo;
+    private Image scaledImage;
     private static final String IMAGE_STORE = "./data/logo.png";
 
 
