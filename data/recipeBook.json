@@ -1,0 +1,95 @@
+{"recipes": [
+    {
+        "name": "Potato salad",
+        "ingredients": [
+            "potatoes",
+            "mayonnaise"
+        ],
+        "time": 45
+    },
+    {
+        "name": "French fries",
+        "ingredients": [
+            "Potatoes",
+            "Ketchup"
+        ],
+        "time": 45
+    },
+    {
+        "name": "French toast",
+        "ingredients": [
+            "Bread",
+            "Eggs"
+        ],
+        "time": 20
+    },
+    {
+        "name": "Coleslaw",
+        "ingredients": [
+            "Red cabbage",
+            "Vinegrette"
+        ],
+        "time": 5
+    },
+    {
+        "name": "PattyMelt",
+        "ingredients": [
+            "Bread",
+            "Ground beef",
+            "Cheese"
+        ],
+        "time": 45
+    },
+    {
+        "name": "Milkshake",
+        "ingredients": [
+            "Icecream ",
+            "Milk"
+        ],
+        "time": 10
+    },
+    {
+        "name": "Toast",
+        "ingredients": [
+            "Bread",
+            "Butter"
+        ],
+        "time": 2
+    },
+    {
+        "name": "Cheeseburger",
+        "ingredients": [
+            "Bun",
+            "Burger patty",
+            "Cheese",
+            "Ketchup",
+            "Pickles"
+        ],
+        "time": 40
+    },
+    {
+        "name": "Chicken breast",
+        "ingredients": ["Chicken"],
+        "time": 45
+    },
+    {
+        "name": "Croissant sandwich",
+        "ingredients": [
+            "Turkey",
+            "Croissant",
+            "Cheese",
+            "Lettuce"
+        ],
+        "time": 20
+    },
+    {
+        "name": "Mushroom pizza",
+        "ingredients": [
+            "Dough",
+            "Cheese",
+            "Tomato sauce",
+            "Mushrooms"
+        ],
+        "time": 60
+    }
+]}

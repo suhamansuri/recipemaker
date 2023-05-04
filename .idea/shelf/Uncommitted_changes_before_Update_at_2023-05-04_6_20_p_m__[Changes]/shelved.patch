@@ -1,0 +1,112 @@
+Index: src/main/model/Inventory.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/model/Inventory.java b/src/main/model/Inventory.java
+new file mode 100644
+--- /dev/null	(date 1682482213247)
++++ b/src/main/model/Inventory.java	(date 1682482213247)
+@@ -0,0 +1,78 @@
++package model;
++
++import org.junit.jupiter.api.BeforeEach;
++import org.junit.jupiter.api.Test;
++
++import java.util.ArrayList;
++import java.util.Collection;
++import java.util.Iterator;
++import model.Toy;
++
++import static org.junit.jupiter.api.Assertions.assertEquals;
++
++
++public class Inventory {
++
++    private Collection<Toy> toys = new ArrayList<>();
++    private Collection<Toy> backlog = new ArrayList<>();
++
++    public void addR(Toy t) {
++        toys.add(t);
++    }
++
++    public void addB(Toy t) {
++        backlog.add(t);
++    }
++
++    @BeforeEach
++    void runBefore() {
++        this.addR(new Toy("A"));
++        this.addR(new Toy("B"));
++        this.addR(new Toy("C"));
++        this.addR(new Toy("D"));
++        this.addR(new Toy("E"));
++
++        this.addB(new Toy("1"));
++        this.addB(new Toy("2"));
++        this.addB(new Toy("3"));
++        this.addB(new Toy("4"));
++        this.addB(new Toy("5"));
++
++    }
++
++
++    public Iterator<String> iterator() {
++        return new InventoryIterator();
++    }
++
++
++    private class InventoryIterator implements Iterator<String> {
++
++
++        Iterator<Toy> toysIterator = toys.iterator();
++        Iterator<Toy> backlogIterator = backlog.iterator();
++
++
++        @Override
++        public boolean hasNext() {
++            return toysIterator.hasNext() && backlogIterator.hasNext();
++        }
++
++        @Override
++        public String next() {
++            String s = "";
++            while (hasNext()) {
++                s.concat(toysIterator.next().toString());
++                s.concat(backlogIterator.next().toString());
++            }
++            return s;
++        }
++
++
++        @Test
++        void testNext() {
++            assertEquals("A1B23CD4E5", this.next());
++
++        }
++    }
++}
+\ No newline at end of file
+Index: src/main/model/Toy.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/model/Toy.java b/src/main/model/Toy.java
+new file mode 100644
+--- /dev/null	(date 1682482213240)
++++ b/src/main/model/Toy.java	(date 1682482213240)
+@@ -0,0 +1,13 @@
++package model;
++
++public class Toy {
++    private String name;
++
++    public Toy(String name) {
++        this.name = name;
++    }
++
++    public String toString() {
++        return name;
++    }
++}

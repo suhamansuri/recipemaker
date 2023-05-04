@@ -1,0 +1,18 @@
+{
+    "recipes": [
+        {
+            "name": "cake",
+            "ingredients": [
+                "flour",
+                "sugar"
+            ],
+            "time": 60
+        },
+        {
+            "name": "pasta",
+            "ingredients": [],
+            "time": 30
+        }
+    ],
+    "name": "Suha's book"
+}
